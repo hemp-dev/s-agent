@@ -2,6 +2,8 @@
 
 ## v0.1.0 - 2026-05-08
 
+Initial open-source MVP.
+
 ### Added
 
 - Created the S-Agent TypeScript monorepo with pnpm workspaces.
@@ -17,6 +19,9 @@
 - Added evaluation fixtures, precision/recall/false-positive benchmarks, and a 50-case synthetic dataset.
 - Added product strategy docs for IntentGuard positioning, ICPs, pricing, messaging, and customer discovery.
 - Added release CI for install, build, test, lint, rule validation, clean demo analysis, and self-analysis.
+- Added Apache-2.0 licensing, open-core documentation, governance, contribution, security, and code of conduct docs.
+- Added GitHub issue templates, a pull request template, and community roadmap docs.
+- Added README translations for major world languages.
 
 ### Fixed
 

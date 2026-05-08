@@ -33,6 +33,14 @@ Examples:
 Traditional linters and tests are not designed to enforce project-specific
 business and architecture intent.
 
+## Why intent-aware code review matters
+
+Many important constraints live in documentation, architecture decisions, and
+team conventions rather than in type systems or unit tests. S-Agent Core makes
+those approved constraints executable, so a pull request can show not only that
+the code is valid TypeScript, but also that it still respects the intended
+boundaries and business rules.
+
 ## Solution
 
 S-Agent Core turns approved `SemanticRule` YAML files into deterministic checks
@@ -57,6 +65,23 @@ The MVP focuses on TypeScript projects and a small set of practical checks:
 - forbidden side effects in read-only scopes using simple call-name heuristics;
 - value invariants using obvious numeric literal checks, such as a discount
   value above the approved maximum.
+
+## What is included in v0.1.0
+
+S-Agent Core v0.1.0 includes the open-source MVP:
+
+- CLI analysis for local and CI usage.
+- The `SemanticRule` model and YAML rule-file format.
+- Rule loading and validation.
+- Basic TypeScript parser and indexer.
+- Basic deterministic analyzer checks.
+- Proof-carrying findings with explicit finding statuses.
+- Markdown and JSON reports.
+- Clean and broken demo projects.
+- Evaluation fixtures and synthetic benchmarks.
+- Dogfood architecture rules for this repository.
+- Open-core, contribution, governance, security, and community docs.
+- README translations for major world languages.
 
 ## Project status
 
@@ -143,7 +168,21 @@ Approved rules are the source of truth. Candidate, deprecated, archived, or
 disabled rules may be loaded and inspected, but they cannot create blocking
 findings.
 
-## Example CLI output
+## How SemanticRule works
+
+A `SemanticRule` records an approved intent from project documentation and the
+deterministic invariant S-Agent Core can check. The rule status and enforcement
+mode decide whether a finding can block:
+
+- `status: approved` marks a rule as enforceable.
+- `severity: critical` marks a rule as high impact.
+- `enforcement.mode: block` allows proven violations to fail the CLI.
+- Candidate, deprecated, archived, or disabled rules cannot create blocking
+  findings.
+
+Only approved critical rules with deterministic `PROVEN` evidence can block.
+
+## Example finding
 
 ```md
 # S-Agent Report

@@ -29,7 +29,7 @@ S-Agent Core includes:
 - Markdown and JSON reports.
 - Evaluation fixtures.
 - Synthetic benchmarks.
-- Basic CI usage.
+- Local and basic CI usage.
 - A planned basic GitHub Action.
 
 ## What is IntentGuard Pro / Enterprise?
@@ -74,7 +74,8 @@ meaningful semantic analysis locally and in CI:
 - Markdown and JSON report generation.
 - Tests, fixtures, and benchmark data needed to verify the core.
 - Basic documentation for writing and running rules.
-- Basic CI and GitHub Action usage when available.
+- Local CLI usage and basic CI usage.
+- Basic GitHub Action usage when available.
 
 Existing MVP features will not be moved behind a paywall.
 

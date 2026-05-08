@@ -124,6 +124,23 @@ A good fixture includes:
 
 Prefer small fixtures that show one behavior at a time.
 
+## Add tests
+
+Add tests with the smallest scope that proves the change:
+
+- package-level tests live next to the package source;
+- cross-package CLI behavior belongs in `tests/integration`;
+- precision, recall, false-positive, and benchmark coverage belongs in
+  `tests/evaluation`.
+
+Every new analyzer check must include tests and fixtures.
+
+Run the test suite before opening a PR:
+
+```sh
+pnpm test
+```
+
 ## Add evaluation tests
 
 Evaluation tests live in `tests/evaluation`.
@@ -144,6 +161,7 @@ network access.
 - Don't move existing MVP functionality behind a commercial boundary.
 - Add tests for every core module change.
 - Add fixtures for every new analyzer behavior.
+- Every new analyzer check must include tests and fixtures.
 
 ## Commit style
 
