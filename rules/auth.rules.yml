@@ -1,0 +1,22 @@
+rules:
+  - rule_id: INV-AUTH-001
+    domain: auth
+    status: approved
+    owner: platform
+    severity: critical
+    scope:
+      modules:
+        - "src/auth/**"
+    intent: "Authentication must remain identity-only and must not couple user sessions to billing behavior."
+    invariants:
+      - id: INV-AUTH-001
+        type: layer_boundary
+        description: "Auth module must not import billing module."
+        from: "src/auth/**"
+        to: "src/billing/**"
+    enforcement:
+      mode: block
+    source:
+      file: "CLAUDE.md"
+      section: "authentication-module"
+      line: 1

@@ -1,0 +1,22 @@
+{
+  "name": "@s-agent/cli",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "bin": {
+    "s-agent": "dist/main.js"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "lint": "tsc -b --pretty false",
+    "analyze": "node dist/index.js analyze",
+    "rules:validate": "node dist/index.js rules validate",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@s-agent/core": "workspace:*",
+    "@s-agent/explainer": "workspace:*",
+    "@s-agent/rules": "workspace:*"
+  }
+}

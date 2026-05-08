@@ -1,0 +1,34 @@
+{
+  "files": [],
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "lib": ["ES2022"],
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@s-agent/shared": ["packages/shared/src"],
+      "@s-agent/rules": ["packages/rules/src"],
+      "@s-agent/parser": ["packages/parser/src"],
+      "@s-agent/analyzer": ["packages/analyzer/src"],
+      "@s-agent/verifier": ["packages/verifier/src"],
+      "@s-agent/explainer": ["packages/explainer/src"],
+      "@s-agent/core": ["packages/core/src"]
+    }
+  },
+  "references": [
+    { "path": "./packages/shared" },
+    { "path": "./packages/rules" },
+    { "path": "./packages/parser" },
+    { "path": "./packages/analyzer" },
+    { "path": "./packages/verifier" },
+    { "path": "./packages/explainer" },
+    { "path": "./packages/core" },
+    { "path": "./apps/cli" }
+  ]
+}

@@ -1,0 +1,31 @@
+rules:
+  - rule_id: EVAL-REPORTS-001
+    domain: reporting
+    status: approved
+    owner: eval
+    severity: warning
+    scope:
+      modules:
+        - "src/reports/**"
+    intent: "Read-only reporting code must not mutate state."
+    invariants:
+      - id: EVAL-REPORTS-001
+        type: forbidden_side_effect
+        description: "Read-only report functions must not perform write-like calls."
+        readonly: true
+        functions:
+          - readOnlySummary
+        forbidden_calls:
+          - save
+          - create
+          - update
+          - delete
+          - insert
+          - emit
+          - publish
+          - dispatch
+    enforcement:
+      mode: review
+    source:
+      file: "CLAUDE.md"
+      section: "read-only-reports"

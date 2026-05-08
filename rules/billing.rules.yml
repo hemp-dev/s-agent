@@ -1,0 +1,55 @@
+rules:
+  - rule_id: INV-BILLING-001
+    domain: billing
+    status: approved
+    owner: revenue
+    severity: critical
+    scope:
+      modules:
+        - "src/billing/**"
+        - "packages/**"
+    intent: "Discount logic must preserve revenue guardrails documented by the billing domain."
+    invariants:
+      - id: INV-BILLING-001
+        type: value_invariant
+        description: "Discount must not exceed the approved maximum threshold."
+        value:
+          symbol: discount
+          max: 30
+          operator: "<="
+    enforcement:
+      mode: block
+    source:
+      file: "CLAUDE.md"
+      section: "billing-discounts"
+      line: 1
+
+  - rule_id: INV-BILLING-READ-001
+    domain: billing
+    status: candidate
+    owner: revenue
+    severity: warning
+    scope:
+      modules:
+        - "src/billing/read-model/**"
+    intent: "Billing read models must not mutate state or emit domain events."
+    invariants:
+      - id: INV-BILLING-READ-001
+        type: forbidden_side_effect
+        description: "Read-only billing functions must not perform write-like calls."
+        readonly: true
+        forbidden_calls:
+          - save
+          - create
+          - update
+          - delete
+          - insert
+          - emit
+          - publish
+          - dispatch
+    enforcement:
+      mode: review
+    source:
+      file: "CLAUDE.md"
+      section: "billing-read-models"
+      line: 1

@@ -1,0 +1,17 @@
+{
+  "name": "@s-agent/rules",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "lint": "tsc -b --pretty false",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@s-agent/shared": "workspace:*",
+    "yaml": "^2.6.1",
+    "zod": "^3.24.1"
+  }
+}

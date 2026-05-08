@@ -1,0 +1,122 @@
+rules:
+  - rule_id: S-AGENT-ARCH-RULES-001
+    domain: architecture
+    status: approved
+    owner: core-team
+    severity: critical
+    scope:
+      modules:
+        - "packages/rules/**"
+    intent: "The rules package owns SemanticRule loading, validation and lifecycle without depending on downstream analysis packages."
+    invariants:
+      - id: S-AGENT-ARCH-RULES-001
+        type: forbidden_import
+        description: "packages/rules must not depend on analyzer, parser, verifier or explainer."
+        forbidden_imports:
+          - "@s-agent/analyzer"
+          - "@s-agent/parser"
+          - "@s-agent/verifier"
+          - "@s-agent/explainer"
+    enforcement:
+      mode: block
+    source:
+      file: "AGENTS.md"
+      section: "S-Agent Internal Architecture Rules"
+      line: 55
+
+  - rule_id: S-AGENT-ARCH-PARSER-001
+    domain: architecture
+    status: approved
+    owner: core-team
+    severity: critical
+    scope:
+      modules:
+        - "packages/parser/**"
+    intent: "The parser owns TypeScript indexing and must not know about user-facing explanations."
+    invariants:
+      - id: S-AGENT-ARCH-PARSER-001
+        type: forbidden_import
+        description: "packages/parser must not depend on explainer."
+        forbidden_imports:
+          - "@s-agent/explainer"
+    enforcement:
+      mode: block
+    source:
+      file: "AGENTS.md"
+      section: "S-Agent Internal Architecture Rules"
+      line: 60
+
+  - rule_id: S-AGENT-ARCH-VERIFIER-001
+    domain: architecture
+    status: approved
+    owner: core-team
+    severity: critical
+    scope:
+      modules:
+        - "packages/verifier/**"
+    intent: "The verifier classifies evidence and must never rely on neural calls as the source of truth."
+    invariants:
+      - id: S-AGENT-ARCH-VERIFIER-001
+        type: forbidden_side_effect
+        description: "packages/verifier must not call LLM clients."
+        readonly: true
+        forbidden_calls:
+          - openai
+          - anthropic
+          - chatCompletion
+          - responses
+          - generateText
+    enforcement:
+      mode: block
+    source:
+      file: "AGENTS.md"
+      section: "S-Agent Internal Architecture Rules"
+      line: 68
+
+  - rule_id: S-AGENT-ARCH-CLI-001
+    domain: architecture
+    status: approved
+    owner: core-team
+    severity: critical
+    scope:
+      modules:
+        - "apps/cli/**"
+    intent: "The CLI orchestrates packages and must not contain or bypass core analysis logic."
+    invariants:
+      - id: S-AGENT-ARCH-CLI-001
+        type: forbidden_import
+        description: "apps/cli must not import analyzer or parser directly."
+        forbidden_imports:
+          - "@s-agent/analyzer"
+          - "@s-agent/parser"
+    enforcement:
+      mode: block
+    source:
+      file: "AGENTS.md"
+      section: "S-Agent Internal Architecture Rules"
+      line: 75
+
+  - rule_id: S-AGENT-RULE-LIFECYCLE-001
+    domain: rule-lifecycle
+    status: approved
+    owner: core-team
+    severity: critical
+    scope:
+      modules:
+        - "packages/verifier/**"
+    intent: "Only approved critical rules in block mode may create blocking findings."
+    invariants:
+      - id: S-AGENT-RULE-LIFECYCLE-001
+        type: forbidden_side_effect
+        description: "Verifier must not expose a bypass helper that marks findings blocking without approval."
+        readonly: true
+        forbidden_calls:
+          - blockWithoutApproval
+          - forceBlocking
+          - bypassRuleApproval
+    enforcement:
+      mode: block
+    source:
+      file: "AGENTS.md"
+      section: "Required Finding Statuses"
+      line: 39

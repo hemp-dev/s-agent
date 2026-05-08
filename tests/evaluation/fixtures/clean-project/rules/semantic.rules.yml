@@ -1,0 +1,44 @@
+rules:
+  - rule_id: EVAL-AUTH-001
+    domain: auth
+    status: approved
+    owner: eval
+    severity: critical
+    scope:
+      modules:
+        - "src/auth/**"
+    intent: "Auth remains identity-only."
+    invariants:
+      - id: EVAL-AUTH-001
+        type: layer_boundary
+        description: "Auth must not import billing."
+        from: "src/auth/**"
+        to: "src/billing/**"
+    enforcement:
+      mode: block
+    source:
+      file: "CLAUDE.md"
+      section: "authentication-module"
+
+  - rule_id: EVAL-BILLING-001
+    domain: billing
+    status: approved
+    owner: eval
+    severity: critical
+    scope:
+      modules:
+        - "src/billing/**"
+    intent: "Billing discounts preserve approved revenue guardrails."
+    invariants:
+      - id: EVAL-BILLING-001
+        type: value_invariant
+        description: "Discount must not exceed 30."
+        value:
+          symbol: discount
+          max: 30
+          operator: "<="
+    enforcement:
+      mode: block
+    source:
+      file: "CLAUDE.md"
+      section: "billing-discounts"

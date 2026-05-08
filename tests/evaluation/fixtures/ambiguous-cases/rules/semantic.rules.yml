@@ -1,0 +1,24 @@
+rules:
+  - rule_id: EVAL-REPORTS-AMBIGUOUS-001
+    domain: reporting
+    status: approved
+    owner: eval
+    severity: warning
+    scope:
+      modules:
+        - "src/reports/**"
+    intent: "Read-only reporting code should avoid side effects unless explicitly reviewed."
+    invariants:
+      - id: EVAL-REPORTS-AMBIGUOUS-001
+        type: forbidden_side_effect
+        description: "Dispatch inside read-only reports needs review."
+        readonly: true
+        functions:
+          - readOnlyView
+        forbidden_calls:
+          - dispatch
+    enforcement:
+      mode: review
+    source:
+      file: "CLAUDE.md"
+      section: "read-only-reports"

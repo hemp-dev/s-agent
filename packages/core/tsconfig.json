@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": ["src/**/*.ts"],
+  "references": [
+    { "path": "../rules" },
+    { "path": "../analyzer" },
+    { "path": "../verifier" },
+    { "path": "../explainer" }
+  ]
+}

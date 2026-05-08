@@ -1,0 +1,23 @@
+rules:
+  - rule_id: EVAL-BILLING-001
+    domain: billing
+    status: approved
+    owner: eval
+    severity: critical
+    scope:
+      modules:
+        - "src/billing/**"
+    intent: "Billing discounts preserve approved revenue guardrails."
+    invariants:
+      - id: EVAL-BILLING-001
+        type: value_invariant
+        description: "Discount must not exceed 30."
+        value:
+          symbol: discount
+          max: 30
+          operator: "<="
+    enforcement:
+      mode: block
+    source:
+      file: "CLAUDE.md"
+      section: "billing-discounts"
