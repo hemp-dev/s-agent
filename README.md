@@ -1,36 +1,58 @@
-# S-Agent MVP
+# S-Agent Core
 
-S-Agent is a deterministic-first semantic code review guard for TypeScript projects. It is the internal architecture behind the IntentGuard product direction:
+S-Agent is an open-source semantic analysis engine for intent-aware code
+review. It checks whether TypeScript code changes preserve approved business
+and architectural intent.
 
-> Protect business intent in every code change.
+IntentGuard is the future commercial platform built on top of S-Agent Core for
+team workflows and enterprise governance.
 
-S-Agent turns approved project-specific `SemanticRule` YAML files into symbolic checks over TypeScript source code and reports proof-carrying findings. The product value is simple: teams can verify that code changes preserve approved business and architectural intent, not just syntax, style, or generic security patterns.
+## Problem
 
-The MVP intentionally stays small: no Neo4j, no dashboard, no solver, no LLM enforcement, no multi-agent runtime, and no multi-language support.
-
-## Why It Exists
-
-Code can compile, pass tests, and still break the intent of the system.
+Code can compile, pass tests, and still violate the intent of the system.
 
 Examples:
 
 - an auth module imports billing code;
-- a read-only flow writes to a database or emits events;
+- a read-only reporting flow writes to a database or emits events;
 - a discount exceeds the approved product threshold;
-- AI-generated or refactored code violates an architecture decision documented in an ADR.
+- a refactor breaks an architecture decision documented in project docs.
 
-S-Agent is built for those cases. It checks approved intent, produces evidence, and only blocks when a critical rule is both approved and proven.
+Traditional linters and tests are not designed to enforce project-specific
+business and architecture intent.
 
-## What It Checks
+## Solution
 
-- Layer boundary violations, such as `src/auth/**` importing `src/billing/**`.
-- Forbidden imports for package or module boundaries.
-- Forbidden side effects in read-only scopes using simple call-name heuristics.
-- Value invariants using obvious numeric literal checks, such as `discount = 45` when the max is `30`.
+S-Agent Core turns approved `SemanticRule` YAML files into deterministic checks
+over TypeScript source code. It reports proof-carrying findings that explain
+the rule, the violated invariant, the changed file, the evidence, and the
+blocking status.
 
-Only `PROVEN` findings from approved critical rules in `block` mode are blocking.
+The core is intentionally small:
 
-## Quick Start
+- documentation-backed rules are the source of truth;
+- deterministic symbolic checks produce blocking findings;
+- only `PROVEN` findings from approved critical rules in `block` mode may fail
+  the CLI;
+- LLMs are not used as the source of truth for blocking behavior.
+
+## What it checks today
+
+The MVP focuses on TypeScript projects and a small set of practical checks:
+
+- layer boundary violations, such as `src/auth/**` importing `src/billing/**`;
+- forbidden imports for package or module boundaries;
+- forbidden side effects in read-only scopes using simple call-name heuristics;
+- value invariants using obvious numeric literal checks, such as a discount
+  value above the approved maximum.
+
+## Project status
+
+S-Agent Core is an experimental MVP. It is useful for local demos, fixtures,
+and early CI experiments, but the public API and rule schema may still change
+before `1.0.0`.
+
+## Quick start
 
 Install dependencies:
 
@@ -38,12 +60,18 @@ Install dependencies:
 pnpm install
 ```
 
-Build and test:
+Build, test, and lint:
 
 ```sh
 pnpm build
 pnpm test
 pnpm lint
+```
+
+Run the clean demo analysis:
+
+```sh
+pnpm analyze:demo
 ```
 
 Validate S-Agent's own dogfood rules:
@@ -52,10 +80,10 @@ Validate S-Agent's own dogfood rules:
 pnpm rules:validate
 ```
 
-Run the green demo smoke test:
+Analyze this repository against its own architecture rules:
 
 ```sh
-pnpm analyze:demo
+pnpm analyze:self
 ```
 
 Run the intentionally broken demo:
@@ -64,13 +92,12 @@ Run the intentionally broken demo:
 pnpm analyze:demo:broken
 ```
 
-Analyze this repository against its own architecture rules:
+`pnpm analyze:demo:broken` exits with code `1` because it intentionally
+contains a blocking violation. `pnpm analyze:demo` uses the clean demo and is
+expected to exit with code `0`.
 
-```sh
-pnpm analyze:self
-```
-
-After building, the CLI entrypoint is also available as the workspace binary package `@s-agent/cli` with the `s-agent` bin.
+After building, the CLI entrypoint is available as the workspace binary package
+`@s-agent/cli` with the `s-agent` bin.
 
 ## Example SemanticRule
 
@@ -100,9 +127,11 @@ rules:
       section: "authentication-module"
 ```
 
-Approved rules are the source of truth. Candidate, deprecated, archived, or disabled rules may be loaded and inspected, but they cannot create blocking findings.
+Approved rules are the source of truth. Candidate, deprecated, archived, or
+disabled rules may be loaded and inspected, but they cannot create blocking
+findings.
 
-## Demo Output
+## Example CLI output
 
 ```md
 # S-Agent Report
@@ -114,64 +143,145 @@ Project: /path/to/examples/demo-typescript-app
 Changed file: src/auth/session.ts
 Changed symbol: module
 
-Problem: Layer boundary violation: src/auth/session.ts imports ../billing/billing-service.
+Problem: Layer boundary violation: src/auth/session.ts imports
+../billing/billing-service.
 
 Why this matters:
-The authentication layer is identity-only; billing behavior must stay inside the billing domain.
+The authentication layer is identity-only; billing behavior must stay inside
+the billing domain.
 
 Technical details:
-The importing file matches 'src/auth/**' and the resolved import matches 'src/billing/**'.
+The importing file matches 'src/auth/**' and the resolved import matches
+'src/billing/**'.
 
 Status: PROVEN
 Severity: critical
 Blocking: yes
 ```
 
-The broken demo exits with code `1` because it intentionally violates a critical approved rule. The clean demo and self-analysis should exit with code `0`.
+## Finding statuses
 
-## Finding Statuses
-
-- `PROVEN`: deterministic symbolic evidence exists. Approved critical `PROVEN` findings in `block` mode may fail the CLI.
+- `PROVEN`: deterministic symbolic evidence exists. Approved critical
+  `PROVEN` findings in `block` mode may fail the CLI.
 - `PROBABLE`: strong heuristic evidence exists, but not enough proof to block.
 - `SUSPECT`: weak signal; informational only.
-- `RULE_CONFLICT`: reserved for future cases where heuristic suspicion conflicts with symbolic evidence.
+- `RULE_CONFLICT`: reserved for future cases where heuristic suspicion
+  conflicts with symbolic evidence.
 - `DISMISSED`: not actionable, not approved, or unsupported by evidence.
 
-## Repository Layout
+## What is open source?
 
-- `packages/rules`: SemanticRule model, YAML loading, validation, registry, lifecycle.
-- `packages/parser`: TypeScript file indexing, import extraction, function extraction.
+S-Agent Core is open source and includes:
+
+- CLI analysis.
+- The `SemanticRule` model and YAML rule-file format.
+- Rule loading and validation.
+- Basic TypeScript parser and indexer.
+- Basic deterministic analyzer checks.
+- Proof-carrying findings.
+- Markdown and JSON reports.
+- Evaluation fixtures.
+- Synthetic benchmarks.
+- Basic CI usage.
+- A planned basic GitHub Action.
+
+The open-source core must remain useful on its own. Existing MVP features will
+not be moved behind a paywall.
+
+## Open-core model
+
+S-Agent Core is the open-source semantic analysis engine.
+
+IntentGuard Pro and Enterprise may later add team and organization workflows on
+top of the core, such as:
+
+- hosted dashboard;
+- team workspace;
+- PR review bot with threaded comments;
+- rule approval console;
+- finding history;
+- developer feedback analytics;
+- automatic intent extraction;
+- Git history mining;
+- advanced LLM explanations;
+- multi-repo governance;
+- organization-wide architecture map;
+- enterprise integrations;
+- SSO, SCIM, and RBAC;
+- audit logs;
+- self-hosted and VPC deployment;
+- advanced compliance and security rule packs;
+- professional services.
+
+These are future commercial extensions. They are not required to run S-Agent
+Core locally or in CI.
+
+Read the full [open-core model](OPEN_CORE.md).
+
+## Repository layout
+
+- `packages/rules`: `SemanticRule` model, YAML loading, validation, registry,
+  and lifecycle.
+- `packages/parser`: TypeScript file indexing, import extraction, and function
+  extraction.
 - `packages/analyzer`: deterministic and heuristic rule checks.
-- `packages/verifier`: finding statuses, evidence chain, blocking classification.
-- `packages/explainer`: deterministic Markdown and JSON report rendering.
-- `packages/core`: orchestration across rules, analyzer, verifier, and explainer.
+- `packages/verifier`: finding statuses, evidence chains, and blocking
+  classification.
+- `packages/explainer`: Markdown and JSON report rendering.
+- `packages/core`: orchestration across rules, analyzer, verifier, and
+  explainer.
+- `packages/shared`: shared types and utilities.
 - `apps/cli`: command-line interface.
 - `rules`: S-Agent's own dogfood rules, including package boundary rules.
 - `examples`: broken and clean TypeScript demo projects.
 - `tests/evaluation`: semantic benchmark fixtures and metric tests.
-- `.github/workflows/ci.yml`: release CI for install, build, test, lint, rule validation, clean demo analysis, and self-analysis.
+- `docs/community`: community roadmap and contribution ideas.
 
-## Release Checks
+## Current limitations
 
-```sh
-pnpm install
-pnpm build
-pnpm test
-pnpm lint
-pnpm rules:validate
-pnpm analyze:demo
-pnpm analyze:self
-```
-
-## Known Limitations
-
-- Diff support only filters findings by files listed in a unified diff and is not exposed as a full CLI workflow yet.
+- Diff support only filters findings by files listed in a unified diff and is
+  not exposed as a full CLI workflow yet.
 - Side-effect detection is heuristic and name-based.
 - Value invariant detection only catches simple numeric literals.
-- Import resolution is intentionally simple for MVP.
+- Import resolution is intentionally simple for the MVP.
 - TypeScript is the only supported language.
-- No GitHub Action PR comment workflow, dashboard, LLM rule suggestion flow, or multi-language parser yet.
+- No GitHub Action PR comment workflow yet.
+- No dashboard or hosted service exists in this repository.
+- No LLM rule suggestion flow is implemented.
 
-## Next Step
+## Roadmap
 
-Add Git diff ingestion to the CLI so `s-agent analyze --diff` reports only changed files in pull-request workflows.
+- v0.1: open-source core with CLI, rule validation, parser, analyzer,
+  proof-carrying findings, reports, fixtures, and benchmarks.
+- v0.2: basic GitHub Action mode.
+- v0.3: community rule packs and more framework examples.
+- v0.4: plugin API draft and extension-point design.
+- Future: IntentGuard Pro alpha for team workflows and governance.
+
+See the [community roadmap](docs/community/community-roadmap.md).
+
+## Contributing
+
+Contributions are welcome when they keep S-Agent Core focused, useful, and
+testable.
+
+Good places to start:
+
+- add fixtures;
+- improve examples;
+- add rule examples;
+- improve CLI output;
+- document the `SemanticRule` schema;
+- add framework-specific examples.
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) and
+[good first issues](docs/community/good-first-issues.md).
+
+## Security
+
+Don't open public issues for security vulnerabilities. Read
+[SECURITY.md](SECURITY.md) for the reporting process.
+
+## License
+
+S-Agent Core is licensed under the [Apache License 2.0](LICENSE).
