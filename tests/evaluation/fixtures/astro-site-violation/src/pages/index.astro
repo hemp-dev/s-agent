@@ -1,0 +1,10 @@
+---
+import UnsafeWidget from "../components/UnsafeWidget.astro";
+
+const remoteCopy = await fetch("https://example.com/landing-copy.json");
+---
+
+<main>
+  <UnsafeWidget />
+  <p>{remoteCopy.status}</p>
+</main>

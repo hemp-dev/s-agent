@@ -15,8 +15,10 @@ function resolveImportCandidate(candidate: string): string | undefined {
     candidate,
     `${candidate}.ts`,
     `${candidate}.tsx`,
+    `${candidate}.astro`,
     path.join(candidate, "index.ts"),
-    path.join(candidate, "index.tsx")
+    path.join(candidate, "index.tsx"),
+    path.join(candidate, "index.astro")
   ];
 
   return candidates.find((filePath) => fs.existsSync(filePath));
