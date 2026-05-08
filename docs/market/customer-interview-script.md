@@ -20,7 +20,7 @@ Length: 30-45 minutes.
 
 Positioning to test:
 
-> We are exploring IntentGuard, an intent-aware code review tool that turns approved engineering docs and architecture rules into deterministic PR checks.
+> We are exploring AxiomGuard, an intent-aware code review tool that turns approved engineering docs and architecture rules into deterministic PR checks.
 
 Do not pitch heavily at the start. Spend the first two-thirds on current behavior and pain.
 
@@ -58,7 +58,7 @@ Thanks for taking the time. I am researching how teams protect architecture and 
 
 Show the short concept:
 
-> IntentGuard turns approved docs and architecture decisions into SemanticRules. It checks TypeScript PRs for layer boundary violations, forbidden side effects, and value invariant violations. Findings are classified as PROVEN, PROBABLE, or SUSPECT. Only approved critical PROVEN findings can block.
+> AxiomGuard turns approved docs and architecture decisions into SemanticRules. It checks TypeScript PRs for layer boundary violations, forbidden side effects, and value invariant violations. Findings are classified as PROVEN, PROBABLE, or SUSPECT. Only approved critical PROVEN findings can block.
 
 Ask:
 

@@ -2,7 +2,7 @@
 
 ## Why Business Metrics Matter
 
-IntentGuard's value is not the number of findings. Its value is preventing changes that violate business intent, architecture decisions, and critical domain constraints.
+AxiomGuard's value is not the number of findings. Its value is preventing changes that violate business intent, architecture decisions, and critical domain constraints.
 
 ## Core Business Metrics
 
@@ -24,7 +24,7 @@ Examples:
 ### Escaped Semantic Bugs
 
 ```text
-escaped_semantic_bugs = semantic_bugs_reaching_production_after_intentguard
+escaped_semantic_bugs = semantic_bugs_reaching_production_after_axiomguard
 ```
 
 This is the counter-metric to regressions prevented. If escaped semantic bugs continue after rules exist, either the rule coverage is too low or the checker is missing important cases.
@@ -85,7 +85,7 @@ MVP target: under 30 minutes.
 Measure time to:
 
 1. install or run the CLI;
-2. point IntentGuard at a repo;
+2. point AxiomGuard at a repo;
 3. validate rules;
 4. run analysis;
 5. interpret the result.
@@ -123,7 +123,7 @@ Collect through discovery calls and pilot conversion:
 team_retention_7d = teams_running_again_within_7_days / activated_teams
 ```
 
-Retention means the team ran IntentGuard again, added a rule, changed rule status, or discussed a finding.
+Retention means the team ran AxiomGuard again, added a rule, changed rule status, or discussed a finding.
 
 ## Reporting View
 

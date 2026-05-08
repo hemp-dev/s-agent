@@ -1,0 +1,167 @@
+rules:
+  - rule_id: S-AGENT-ASTRO-NODE-001
+    domain: astro-site
+    status: approved
+    owner: web-platform
+    severity: critical
+    scope:
+      modules:
+        - "src/pages/**"
+        - "src/components/**"
+        - "src/layouts/**"
+        - "apps/site/src/pages/**"
+        - "apps/site/src/components/**"
+        - "apps/site/src/layouts/**"
+    intent: "Astro presentation files must stay static and must not couple the site to server-only runtimes or S-Agent enforcement internals."
+    invariants:
+      - id: S-AGENT-ASTRO-NODE-001
+        type: forbidden_import
+        description: "Astro pages, layouts and components must not import Node runtime modules or S-Agent analysis packages."
+        forbidden_imports:
+          - "fs"
+          - "child_process"
+          - "net"
+          - "http"
+          - "https"
+          - "node:fs"
+          - "node:child_process"
+          - "node:net"
+          - "node:http"
+          - "node:https"
+          - "@s-agent/analyzer"
+          - "@s-agent/parser"
+          - "@s-agent/verifier"
+          - "@s-agent/rules"
+          - "@s-agent/core"
+    enforcement:
+      mode: block
+    source:
+      file: "AGENTS.md"
+      section: "Self-Application Principle"
+      line: 45
+
+  - rule_id: S-AGENT-ASTRO-STATIC-SIDE-EFFECTS-001
+    domain: astro-site
+    status: approved
+    owner: web-platform
+    severity: warning
+    scope:
+      modules:
+        - "src/pages/**"
+        - "src/components/**"
+        - "src/layouts/**"
+        - "src/content/**"
+        - "apps/site/src/pages/**"
+        - "apps/site/src/components/**"
+        - "apps/site/src/layouts/**"
+        - "apps/site/src/content/**"
+    intent: "Static Astro site source should render approved content and must not perform network, analytics, LLM or mutation side effects during page generation."
+    invariants:
+      - id: S-AGENT-ASTRO-STATIC-SIDE-EFFECTS-001
+        type: forbidden_side_effect
+        description: "Astro static site source must not perform runtime side-effect calls."
+        readonly: true
+        forbidden_calls:
+          - fetch
+          - openai
+          - anthropic
+          - chatCompletion
+          - responses
+          - generateText
+          - track
+          - identify
+          - capture
+          - setItem
+          - emit
+          - publish
+          - dispatch
+    enforcement:
+      mode: review
+    source:
+      file: "AGENTS.md"
+      section: "Core Principle"
+      line: 19
+
+  - rule_id: S-AGENT-ASTRO-CONTENT-BOUNDARY-001
+    domain: astro-site
+    status: approved
+    owner: web-platform
+    severity: warning
+    scope:
+      modules:
+        - "src/content/**"
+        - "apps/site/src/content/**"
+    intent: "Astro content modules own approved marketing facts and must not depend on presentation pages, layouts or components."
+    invariants:
+      - id: S-AGENT-ASTRO-CONTENT-BOUNDARY-001A
+        type: layer_boundary
+        description: "Standalone Astro content modules must not import pages."
+        from: "src/content/**"
+        to: "src/pages/**"
+      - id: S-AGENT-ASTRO-CONTENT-BOUNDARY-001B
+        type: layer_boundary
+        description: "Standalone Astro content modules must not import components."
+        from: "src/content/**"
+        to: "src/components/**"
+      - id: S-AGENT-ASTRO-CONTENT-BOUNDARY-001C
+        type: layer_boundary
+        description: "Standalone Astro content modules must not import layouts."
+        from: "src/content/**"
+        to: "src/layouts/**"
+      - id: S-AGENT-ASTRO-CONTENT-BOUNDARY-001D
+        type: layer_boundary
+        description: "Monorepo Astro content modules must not import pages."
+        from: "apps/site/src/content/**"
+        to: "apps/site/src/pages/**"
+      - id: S-AGENT-ASTRO-CONTENT-BOUNDARY-001E
+        type: layer_boundary
+        description: "Monorepo Astro content modules must not import components."
+        from: "apps/site/src/content/**"
+        to: "apps/site/src/components/**"
+      - id: S-AGENT-ASTRO-CONTENT-BOUNDARY-001F
+        type: layer_boundary
+        description: "Monorepo Astro content modules must not import layouts."
+        from: "apps/site/src/content/**"
+        to: "apps/site/src/layouts/**"
+    enforcement:
+      mode: review
+    source:
+      file: "AGENTS.md"
+      section: "Self-Application Principle"
+      line: 45
+
+  - rule_id: S-AGENT-ASTRO-SEO-STATIC-001
+    domain: astro-site
+    status: approved
+    owner: web-platform
+    severity: warning
+    scope:
+      modules:
+        - "apps/site/src/content/**"
+        - "apps/site/src/pages/**"
+    intent: "SEO and AEO pages must stay static, source-controlled, and independent from runtime network or analytics side effects."
+    invariants:
+      - id: S-AGENT-ASTRO-SEO-STATIC-001
+        type: forbidden_side_effect
+        description: "SEO and AEO site routes must not perform runtime side-effect calls."
+        readonly: true
+        forbidden_calls:
+          - fetch
+          - openai
+          - anthropic
+          - chatCompletion
+          - responses
+          - generateText
+          - track
+          - identify
+          - capture
+          - setItem
+          - emit
+          - publish
+          - dispatch
+    enforcement:
+      mode: review
+    source:
+      file: "AGENTS.md"
+      section: "Self-Application Principle"
+      line: 45

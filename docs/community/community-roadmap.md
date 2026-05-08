@@ -1,7 +1,7 @@
 # Community roadmap
 
 This roadmap describes the intended direction for S-Agent Core and future
-IntentGuard commercial work. It is not a promise of dates. It is a shared map
+AxiomGuard commercial work. It is not a promise of dates. It is a shared map
 for community planning.
 
 ## v0.1 OSS Core
@@ -46,7 +46,7 @@ Focus: design extension points before implementing a plugin system.
 
 No plugin system is implemented yet.
 
-## Future IntentGuard Pro alpha
+## Future AxiomGuard Pro alpha
 
 Focus: team workflows and governance built on top of S-Agent Core.
 

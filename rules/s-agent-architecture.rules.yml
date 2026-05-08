@@ -96,6 +96,32 @@ rules:
       section: "S-Agent Internal Architecture Rules"
       line: 75
 
+  - rule_id: S-AGENT-ARCH-SITE-001
+    domain: architecture
+    status: approved
+    owner: core-team
+    severity: warning
+    scope:
+      modules:
+        - "apps/site/**"
+    intent: "The site app owns the public marketing landing page and must stay presentation-only."
+    invariants:
+      - id: S-AGENT-ARCH-SITE-001
+        type: forbidden_import
+        description: "apps/site must not import core analysis packages or duplicate analyzer logic."
+        forbidden_imports:
+          - "@s-agent/analyzer"
+          - "@s-agent/parser"
+          - "@s-agent/verifier"
+          - "@s-agent/rules"
+          - "@s-agent/core"
+    enforcement:
+      mode: review
+    source:
+      file: "AGENTS.md"
+      section: "Self-Application Principle"
+      line: 45
+
   - rule_id: S-AGENT-RULE-LIFECYCLE-001
     domain: rule-lifecycle
     status: approved

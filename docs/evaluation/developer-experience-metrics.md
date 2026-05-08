@@ -2,7 +2,7 @@
 
 ## Why DX Matters
 
-IntentGuard can only protect intent if developers trust its findings. The MVP should measure not only whether findings are correct, but whether they are understandable, actionable, and low-noise in real PR workflows.
+AxiomGuard can only protect intent if developers trust its findings. The MVP should measure not only whether findings are correct, but whether they are understandable, actionable, and low-noise in real PR workflows.
 
 ## Core DX Metrics
 
@@ -44,7 +44,7 @@ MVP target: under 60 seconds for deterministic findings.
 ### PR Review Time Impact
 
 ```text
-review_time_impact = median_review_time_with_intentguard - baseline_median_review_time
+review_time_impact = median_review_time_with_axiomguard - baseline_median_review_time
 ```
 
 Do not expect immediate reduction during onboarding. The first target is neutral review time with higher confidence. Later, target reduced senior-review load for repeated rules.

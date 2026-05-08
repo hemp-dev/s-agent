@@ -1,0 +1,390 @@
+---
+import {
+  answerBlocks,
+  brand,
+  comparisonRows,
+  diffLines,
+  faqItems,
+  findingStatuses,
+  heroDefinition,
+  pageMetadata,
+  proofChain,
+  realDemo,
+  realDemoReports,
+  realDemoSteps,
+  semanticRuleSnippet,
+  siteMetadata,
+  violationTypes,
+  workflowSteps
+} from "../content/landing";
+import { seoClusterPages } from "../content/seo-pages";
+import "../styles/landing.css";
+
+const pageTitle = pageMetadata.title;
+const pageDescription = pageMetadata.description;
+const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
+const siteBase = Astro.site ?? new URL(siteMetadata.productionUrl);
+const ogImageUrl = new URL(siteMetadata.ogImagePath, siteBase).toString();
+const softwareApplicationSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: brand.product,
+  alternateName: brand.engine,
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Any",
+  description: pageDescription,
+  dateModified: pageMetadata.lastUpdated,
+  sameAs: [siteMetadata.githubUrl],
+  codeRepository: siteMetadata.githubUrl,
+  featureList: violationTypes.map((item) => item.title),
+  audience: {
+    "@type": "Audience",
+    audienceType: "TypeScript engineering teams using AI-assisted development"
+  }
+};
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer
+    }
+  }))
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={pageDescription} />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <script type="application/ld+json" set:html={JSON.stringify(softwareApplicationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand-mark" href="#top" aria-label="AxiomGuard home">
+        <span class="brand-mark__sigil">AG</span>
+        <span>
+          <strong>{brand.product}</strong>
+          <small>powered by {brand.engine}</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#answers">What it is</a>
+        <a href="#demo">Demo</a>
+        <a href="#rules">Rules</a>
+        <a href="#faq">FAQ</a>
+        <a href="#proof">Proof</a>
+        <a href={siteMetadata.githubUrl} rel="me noreferrer" target="_blank">GitHub</a>
+      </nav>
+      <a class="header-action" href="#demo">Run demo</a>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__copy">
+          <p class="eyebrow">{brand.category}</p>
+          <h1 id="hero-title">{brand.headline}</h1>
+          <p class="hero__lede">{brand.subheadline}</p>
+          <p class="hero__definition">{heroDefinition}</p>
+          <div class="hero__actions" aria-label="Hero actions">
+            <a class="button button--primary" href="#demo">Run the real demo</a>
+            <a class="button button--secondary" href="#rules">Read the rule shape</a>
+          </div>
+          <ul class="trust-list" aria-label="Trust principles">
+            <li>Approved rules are source of truth</li>
+            <li>LLM cannot create blocking findings</li>
+            <li>PROVEN critical evidence can block</li>
+          </ul>
+        </div>
+
+        <div class="proof-stage" aria-label="Proof-carrying review board">
+          <div class="stage-rails" aria-hidden="true"></div>
+
+          <article class="artifact artifact--rule">
+            <p class="artifact__label">SemanticRule</p>
+            <pre>{semanticRuleSnippet.join("\n")}</pre>
+          </article>
+
+          <article class="artifact artifact--diff">
+            <p class="artifact__label">Changed diff</p>
+            {diffLines.map((line) => (
+              <div class={`diff-line diff-line--${line.tone}`}>{line.text}</div>
+            ))}
+          </article>
+
+          <article class="artifact artifact--finding">
+            <p class="artifact__label">Proof-carrying finding</p>
+            <h2>AUTH-BOUNDARY-001</h2>
+            <dl>
+              <div>
+                <dt>Status</dt>
+                <dd>PROVEN</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>import edge auth -> billing</dd>
+              </div>
+              <div>
+                <dt>Action</dt>
+                <dd>Block merge</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="artifact artifact--trace">
+            <p class="artifact__label">Trace</p>
+            <ol>
+              {proofChain.map((item) => <li>{item}</li>)}
+            </ol>
+          </article>
+        </div>
+      </section>
+
+      <section class="section demo-section" id="demo" aria-labelledby="demo-title">
+        <div class="section-heading">
+          <p class="eyebrow">Real repo demo</p>
+          <h2 id="demo-title">{realDemo.title}</h2>
+          <p>{realDemo.body}</p>
+        </div>
+
+        <div class="demo-command-row" aria-label="Demo commands">
+          <code>{realDemo.brokenCommand}</code>
+          <code>{realDemo.cleanCommand}</code>
+        </div>
+
+        <div class="demo-step-grid">
+          {realDemoSteps.map((step) => (
+            <article class="demo-step">
+              <span class="demo-step__label">{step.label}</span>
+              <h3>{step.title}</h3>
+              <code>{step.path}</code>
+              <pre>{step.lines.join("\n")}</pre>
+            </article>
+          ))}
+        </div>
+
+        <div class="demo-report-grid">
+          {realDemoReports.map((report) => (
+            <article
+              class={`terminal terminal--demo terminal--${report.tone}`}
+              role="img"
+              aria-label={report.ariaLabel}
+            >
+              <div class="terminal__bar">
+                <div class="terminal__lights" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <strong>{report.title}</strong>
+                <em>{report.outcome}</em>
+              </div>
+              <pre>{report.lines.join("\n")}</pre>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section answer-section" id="answers" aria-labelledby="answers-title">
+        <div class="section-heading">
+          <p class="eyebrow">Intent-aware review</p>
+          <h2 id="answers-title">What is AxiomGuard?</h2>
+          <p>
+            AxiomGuard gives reviewers concise, source-backed answers about what
+            changed, which approved rule was violated, and why the finding can or
+            cannot block.
+          </p>
+        </div>
+        <div class="answer-grid">
+          {answerBlocks.map((item) => (
+            <article class="answer-card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="signal-strip" aria-label="Supported checks">
+        <div class="signal-strip__track">
+          {violationTypes.map((item) => (
+            <article class={`signal-card signal-card--${item.accent}`}>
+              <strong>{item.title}</strong>
+              <span>{item.rule}</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section section--split" id="rules">
+        <div>
+          <p class="eyebrow">Docs become guardrails</p>
+          <h2>Your most repeated review comments should be executable.</h2>
+        </div>
+        <div class="copy-stack">
+          <p>
+            AxiomGuard starts where teams already write intent: CLAUDE.md, READMEs,
+            ADRs, and architecture notes. Candidate rules can be suggested, but the
+            approved YAML file is the source of truth.
+          </p>
+          <p>
+            The MVP stays deliberately narrow: TypeScript diffs, symbolic checks, and
+            proof-carrying findings for the three violations that teams repeat by hand.
+          </p>
+        </div>
+      </section>
+
+      <section class="section check-grid" aria-label="MVP violation checks">
+        {violationTypes.map((item) => (
+          <article class={`check-card check-card--${item.accent}`}>
+            <span class="check-card__index">0{violationTypes.indexOf(item) + 1}</span>
+            <h3>{item.title}</h3>
+            <p>{item.rule}</p>
+            <code>{item.example}</code>
+          </article>
+        ))}
+      </section>
+
+      <section class="section workflow-section" id="how" aria-labelledby="how-title">
+        <div class="section-heading">
+          <p class="eyebrow">How it works</p>
+          <h2 id="how-title">How does AxiomGuard check a pull request?</h2>
+          <p>
+            The review path stays small and auditable: approved rules, TypeScript
+            analysis, symbolic evidence, and conservative blocking.
+          </p>
+        </div>
+        <ol class="workflow-list">
+          {workflowSteps.map((item) => (
+            <li>
+              <strong>{item.title}</strong>
+              <span>{item.body}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="section comparison-section" id="compare" aria-labelledby="compare-title">
+        <div class="section-heading">
+          <p class="eyebrow">Comparison</p>
+          <h2 id="compare-title">AxiomGuard vs SAST, linters, and AI reviewers.</h2>
+          <p>
+            AxiomGuard is not another generic scanner. It adds a deterministic
+            intent layer beside the tools teams already use.
+          </p>
+        </div>
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Alternative</th>
+                <th>What it checks</th>
+                <th>What AxiomGuard adds</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((item) => (
+                <tr>
+                  <th scope="row">{item.alternative}</th>
+                  <td>{item.checks}</td>
+                  <td>{item.adds}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section topic-section" id="topics" aria-labelledby="topics-title">
+        <div class="section-heading">
+          <p class="eyebrow">Search topics</p>
+          <h2 id="topics-title">Explore intent-aware review topics.</h2>
+          <p>
+            These short pages answer the priority questions teams ask when they
+            compare semantic review, AI guardrails, architecture drift prevention,
+            and business logic regression prevention.
+          </p>
+        </div>
+        <div class="topic-grid">
+          {seoClusterPages.map((page) => (
+            <a class="topic-card" href={`/${page.slug}`}>
+              <span>{page.keyword}</span>
+              <strong>{page.title}</strong>
+              <p>{page.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="section proof-section" id="proof">
+        <div class="section-heading">
+          <p class="eyebrow">Finding statuses</p>
+          <h2>Only proof gets to stop a merge.</h2>
+          <p>
+            Heuristics can point reviewers toward risk. Blocking remains conservative:
+            approved critical rules, deterministic evidence, and a concrete trace.
+          </p>
+        </div>
+
+        <div class="status-grid">
+          {findingStatuses.map((item) => (
+            <article class={`status-card status-card--${item.status.toLowerCase()}`}>
+              <strong>{item.status}</strong>
+              <span>{item.effect}</span>
+              <p>{item.detail}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section faq-section" id="faq" aria-labelledby="faq-title">
+        <div class="section-heading">
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-title">Common questions about AxiomGuard.</h2>
+        </div>
+        <div class="faq-list">
+          {faqItems.map((item) => (
+            <details>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        {brand.product} is the public product direction. {brand.engine} is the semantic
+        analysis engine inside this repository. Last updated {pageMetadata.lastUpdated}.
+      </p>
+      <div class="site-footer__links">
+        <a href={siteMetadata.githubUrl} rel="me noreferrer" target="_blank">GitHub</a>
+        <a href="#top">Back to top</a>
+      </div>
+    </footer>
+  </body>
+</html>

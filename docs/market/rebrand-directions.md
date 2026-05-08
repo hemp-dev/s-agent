@@ -4,29 +4,34 @@
 
 `S-Agent` should remain the internal architecture and repository codename. It sounds technical, implementation-oriented, and agent-centric. The customer-facing product should be framed around intent protection, not agent mechanics.
 
-## Recommended Brand: IntentGuard
+## Selected Brand: AxiomGuard
 
-**Core line:** IntentGuard protects business intent in every code change.
+**Core line:** AxiomGuard protects business intent in every code change.
 
 ### Why It Works
 
-- Clear outcome: guarding intent.
-- Memorable enough for a category entry point.
+- "Axiom" signals foundational rules that must stay true as code changes.
+- "Guard" makes the review-time protection job clear.
+- Strong fit for engineering, platform, governance, and critical-systems buyers.
 - Avoids overclaiming AI autonomy.
-- Works for engineering, platform, and governance buyers.
 - Supports the category "Intent-Aware Code Review."
 
 ### Risks
 
 - "Guard" language can sound security-heavy.
 - The name may overlap conceptually with AI guardrails.
-- Needs visual and copy treatment that feels practical, not compliance-heavy.
+- "Axiom" may feel abstract to some developer audiences.
+- Needs practical copy that ties axioms back to docs, rules, and PR evidence.
 
 ### Mitigation
 
 Pair the name with code review language:
 
-> IntentGuard: Intent-Aware Code Review for engineering teams.
+> AxiomGuard: Intent-Aware Code Review for engineering teams.
+
+Use the product sentence:
+
+> AxiomGuard guards the approved business and architecture rules behind every pull request.
 
 ## Alternative Directions
 
@@ -46,19 +51,9 @@ Pair the name with code review language:
 
 **Pros:** Direct, SEO-friendly, easy to explain.
 
-**Cons:** Less premium and less enterprise-ready than IntentGuard.
+**Cons:** Less premium and less enterprise-ready than AxiomGuard.
 
 **Tagline:** Know whether your code still means what it should.
-
-### AxiomGuard
-
-**Meaning:** Protect the foundational rules of a software system.
-
-**Pros:** Deep-tech, enterprise, and formal-systems feel.
-
-**Cons:** Less obvious for developers; may over-signal complexity.
-
-**Tagline:** Guard the axioms behind your software.
 
 ### RuleTrace
 
@@ -66,7 +61,7 @@ Pair the name with code review language:
 
 **Pros:** Strong evidence and audit connotation.
 
-**Cons:** Sounds narrower and less strategic than IntentGuard.
+**Cons:** Sounds narrower and less strategic than AxiomGuard.
 
 ### IntentCheck
 
@@ -104,7 +99,7 @@ Pair the name with code review language:
 
 Use:
 
-- Product brand: **IntentGuard**
+- Product brand: **AxiomGuard**
 - Internal architecture name: **S-Agent**
 - Category: **Intent-Aware Code Review**
 - Category aliases to test: **Semantic Code Review**, **Intent-Aware PR Guard**
@@ -139,15 +134,15 @@ Avoid:
 
 | Layer | Name |
 | --- | --- |
-| Public product | IntentGuard |
+| Public product | AxiomGuard |
 | Category | Intent-Aware Code Review |
 | Internal project | S-Agent |
 | Rule object | SemanticRule |
 | Report object | Proof-carrying finding |
-| CLI | `intentguard` eventually, `s-agent` during MVP |
+| CLI | `axiomguard` eventually, `s-agent` during MVP |
 
 ## Product/Architecture Sentence
 
 Use this when explaining the relationship:
 
-> IntentGuard is powered by S-Agent, a semantic analysis engine that checks whether code changes preserve approved business and architectural intent.
+> AxiomGuard is powered by S-Agent, a semantic analysis engine that checks whether code changes preserve approved business and architectural intent.

@@ -1,0 +1,16 @@
+{
+  "name": "@s-agent/site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Astro landing page for AxiomGuard, powered by S-Agent.",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "test": "vitest run --root ../.. apps/site/src"
+  },
+  "devDependencies": {
+    "astro": "^5.13.0"
+  }
+}

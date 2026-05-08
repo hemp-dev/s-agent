@@ -3,11 +3,16 @@ import path from "node:path";
 import { relativeToRoot } from "@s-agent/shared";
 
 const ignoredDirectories = new Set([".git", "dist", "node_modules", "coverage"]);
+const sourceFileExtensions = /\.(astro|ts|tsx)$/;
 
 export interface SourceFileEntry {
   absolutePath: string;
   relativePath: string;
   text: string;
+}
+
+function isIndexableSourceFile(fileName: string): boolean {
+  return sourceFileExtensions.test(fileName) && !fileName.endsWith(".d.ts");
 }
 
 export async function listTypeScriptFiles(projectRoot: string): Promise<string[]> {
@@ -25,11 +30,7 @@ export async function listTypeScriptFiles(projectRoot: string): Promise<string[]
           return visit(fullPath);
         }
 
-        if (
-          entry.isFile() &&
-          /\.(ts|tsx)$/.test(entry.name) &&
-          !entry.name.endsWith(".d.ts")
-        ) {
+        if (entry.isFile() && isIndexableSourceFile(entry.name)) {
           return [fullPath];
         }
 

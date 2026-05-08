@@ -18,16 +18,47 @@ export interface ProjectIndex {
   files: IndexedFile[];
 }
 
+function astroFrontmatterScript(text: string): string {
+  const lines = text.split(/\r?\n/);
+
+  if (lines[0]?.trim() !== "---") {
+    return "";
+  }
+
+  const closingFenceIndex = lines.findIndex((line, index) => index > 0 && line.trim() === "---");
+
+  if (closingFenceIndex === -1) {
+    return "";
+  }
+
+  return lines
+    .map((line, index) => (index > 0 && index < closingFenceIndex ? line : ""))
+    .join("\n");
+}
+
+function scriptTextFor(entry: { absolutePath: string; text: string }): string {
+  if (entry.absolutePath.endsWith(".astro")) {
+    return astroFrontmatterScript(entry.text);
+  }
+
+  return entry.text;
+}
+
+function scriptKindFor(absolutePath: string): ts.ScriptKind {
+  return absolutePath.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
+}
+
 export async function indexProject(projectRoot: string): Promise<ProjectIndex> {
   const root = path.resolve(projectRoot);
   const sourceFiles = await readSourceFiles(root);
   const files = sourceFiles.map((entry) => {
+    const scriptText = scriptTextFor(entry);
     const sourceFile = ts.createSourceFile(
       entry.absolutePath,
-      entry.text,
+      scriptText,
       ts.ScriptTarget.Latest,
       true,
-      entry.absolutePath.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS
+      scriptKindFor(entry.absolutePath)
     );
     const symbols = extractSymbols(sourceFile);
 

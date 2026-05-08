@@ -1,0 +1,171 @@
+---
+import { brand, pageMetadata, siteMetadata } from "../content/landing";
+import { seoClusterPages, type SeoClusterPage } from "../content/seo-pages";
+import "../styles/landing.css";
+
+export function getStaticPaths() {
+  return seoClusterPages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page }
+  }));
+}
+
+interface Props {
+  page: SeoClusterPage;
+}
+
+const { page } = Astro.props;
+const siteBase = Astro.site ?? new URL(siteMetadata.productionUrl);
+const canonicalUrl = new URL(`/${page.slug}`, siteBase).toString();
+const ogImageUrl = new URL(siteMetadata.ogImagePath, siteBase).toString();
+const pageTitle = `${page.title} | ${brand.product}`;
+const relatedPages = seoClusterPages.filter((item) => item.slug !== page.slug);
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: page.title,
+  description: page.description,
+  dateModified: pageMetadata.lastUpdated,
+  mainEntityOfPage: canonicalUrl,
+  publisher: {
+    "@type": "Organization",
+    name: brand.product,
+    sameAs: siteMetadata.githubUrl
+  },
+  sameAs: siteMetadata.githubUrl
+};
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: page.faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer
+    }
+  }))
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={page.description} />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={page.description} />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={page.description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <link rel="canonical" href={canonicalUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand-mark" href="/" aria-label="AxiomGuard home">
+        <span class="brand-mark__sigil">AG</span>
+        <span>
+          <strong>{brand.product}</strong>
+          <small>powered by {brand.engine}</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a href="/#topics">Topics</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/#cli">CLI</a>
+        <a href={siteMetadata.githubUrl} rel="me noreferrer" target="_blank">GitHub</a>
+      </nav>
+      <a class="header-action" href="/#demo">Run demo</a>
+    </header>
+
+    <main>
+      <article class="cluster-hero">
+        <p class="eyebrow">{page.keyword}</p>
+        <h1>{page.title}</h1>
+        <p class="cluster-hero__lede">{page.hero}</p>
+        <p class="cluster-answer">{page.definition}</p>
+      </article>
+
+      <section class="section cluster-section" aria-labelledby="proof-title">
+        <div class="section-heading">
+          <p class="eyebrow">Why it matters</p>
+          <h2 id="proof-title">Proof beats plausible review comments.</h2>
+        </div>
+        <div class="cluster-grid">
+          {page.proofPoints.map((item) => (
+            <article class="cluster-card">
+              <p>{item}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section cluster-section" aria-labelledby="use-cases-title">
+        <div class="section-heading">
+          <p class="eyebrow">Use cases</p>
+          <h2 id="use-cases-title">Where teams apply this first.</h2>
+        </div>
+        <ul class="cluster-list">
+          {page.useCases.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+
+      <section class="section faq-section" aria-labelledby="cluster-faq-title">
+        <div class="section-heading">
+          <p class="eyebrow">FAQ</p>
+          <h2 id="cluster-faq-title">Questions about {page.keyword}.</h2>
+        </div>
+        <div class="faq-list">
+          {page.faq.map((item) => (
+            <details>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="section related-section" aria-labelledby="related-title">
+        <div class="section-heading">
+          <p class="eyebrow">Related topics</p>
+          <h2 id="related-title">Continue the intent-aware review map.</h2>
+        </div>
+        <div class="topic-grid">
+          {relatedPages.map((item) => (
+            <a class="topic-card" href={`/${item.slug}`}>
+              <span>{item.keyword}</span>
+              <strong>{item.title}</strong>
+              <p>{item.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        {brand.product} publishes deterministic, TypeScript-first guidance for
+        intent-aware code review. Last updated {pageMetadata.lastUpdated}.
+      </p>
+      <div class="site-footer__links">
+        <a href={siteMetadata.githubUrl} rel="me noreferrer" target="_blank">GitHub</a>
+        <a href="/">Back home</a>
+      </div>
+    </footer>
+  </body>
+</html>
