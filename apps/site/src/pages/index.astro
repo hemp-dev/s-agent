@@ -1,18 +1,57 @@
 ---
 import {
+  answerBlocks,
   brand,
   cliReportLines,
+  comparisonRows,
   diffLines,
+  faqItems,
   findingStatuses,
+  heroDefinition,
+  pageMetadata,
   proofChain,
   semanticRuleSnippet,
-  violationTypes
+  siteMetadata,
+  violationTypes,
+  workflowSteps
 } from "../content/landing";
+import { seoClusterPages } from "../content/seo-pages";
 import "../styles/landing.css";
 
-const pageTitle = `${brand.product} - ${brand.category}`;
-const pageDescription =
-  "Deterministic-first semantic code review for TypeScript teams. Approved rules, symbolic evidence, proof-carrying findings.";
+const pageTitle = pageMetadata.title;
+const pageDescription = pageMetadata.description;
+const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
+const siteBase = Astro.site ?? new URL(siteMetadata.productionUrl);
+const ogImageUrl = new URL(siteMetadata.ogImagePath, siteBase).toString();
+const softwareApplicationSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: brand.product,
+  alternateName: brand.engine,
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Any",
+  description: pageDescription,
+  dateModified: pageMetadata.lastUpdated,
+  sameAs: [siteMetadata.githubUrl],
+  codeRepository: siteMetadata.githubUrl,
+  featureList: violationTypes.map((item) => item.title),
+  audience: {
+    "@type": "Audience",
+    audienceType: "TypeScript engineering teams using AI-assisted development"
+  }
+};
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer
+    }
+  }))
+};
 ---
 
 <!doctype html>
@@ -20,10 +59,25 @@ const pageDescription =
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={pageDescription} />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <script type="application/ld+json" set:html={JSON.stringify(softwareApplicationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
     <title>{pageTitle}</title>
   </head>
   <body>
@@ -36,9 +90,11 @@ const pageDescription =
         </span>
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#answers">What it is</a>
         <a href="#rules">Rules</a>
+        <a href="#faq">FAQ</a>
         <a href="#proof">Proof</a>
-        <a href="#cli">CLI</a>
+        <a href={siteMetadata.githubUrl} rel="me noreferrer" target="_blank">GitHub</a>
       </nav>
       <a class="header-action" href="#demo">Run demo</a>
     </header>
@@ -49,6 +105,7 @@ const pageDescription =
           <p class="eyebrow">{brand.category}</p>
           <h1 id="hero-title">{brand.headline}</h1>
           <p class="hero__lede">{brand.subheadline}</p>
+          <p class="hero__definition">{heroDefinition}</p>
           <div class="hero__actions" aria-label="Hero actions">
             <a class="button button--primary" href="#cli">Run the demo</a>
             <a class="button button--secondary" href="#rules">Read the rule shape</a>
@@ -103,6 +160,26 @@ const pageDescription =
         </div>
       </section>
 
+      <section class="section answer-section" id="answers" aria-labelledby="answers-title">
+        <div class="section-heading">
+          <p class="eyebrow">Intent-aware review</p>
+          <h2 id="answers-title">What is IntentGuard?</h2>
+          <p>
+            IntentGuard gives reviewers concise, source-backed answers about what
+            changed, which approved rule was violated, and why the finding can or
+            cannot block.
+          </p>
+        </div>
+        <div class="answer-grid">
+          {answerBlocks.map((item) => (
+            <article class="answer-card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section class="signal-strip" aria-label="Supported checks">
         <div class="signal-strip__track">
           {violationTypes.map((item) => (
@@ -143,6 +220,77 @@ const pageDescription =
         ))}
       </section>
 
+      <section class="section workflow-section" id="how" aria-labelledby="how-title">
+        <div class="section-heading">
+          <p class="eyebrow">How it works</p>
+          <h2 id="how-title">How does IntentGuard check a pull request?</h2>
+          <p>
+            The review path stays small and auditable: approved rules, TypeScript
+            analysis, symbolic evidence, and conservative blocking.
+          </p>
+        </div>
+        <ol class="workflow-list">
+          {workflowSteps.map((item) => (
+            <li>
+              <strong>{item.title}</strong>
+              <span>{item.body}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="section comparison-section" id="compare" aria-labelledby="compare-title">
+        <div class="section-heading">
+          <p class="eyebrow">Comparison</p>
+          <h2 id="compare-title">IntentGuard vs SAST, linters, and AI reviewers.</h2>
+          <p>
+            IntentGuard is not another generic scanner. It adds a deterministic
+            intent layer beside the tools teams already use.
+          </p>
+        </div>
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Alternative</th>
+                <th>What it checks</th>
+                <th>What IntentGuard adds</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((item) => (
+                <tr>
+                  <th scope="row">{item.alternative}</th>
+                  <td>{item.checks}</td>
+                  <td>{item.adds}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section topic-section" id="topics" aria-labelledby="topics-title">
+        <div class="section-heading">
+          <p class="eyebrow">Search topics</p>
+          <h2 id="topics-title">Explore intent-aware review topics.</h2>
+          <p>
+            These short pages answer the priority questions teams ask when they
+            compare semantic review, AI guardrails, architecture drift prevention,
+            and business logic regression prevention.
+          </p>
+        </div>
+        <div class="topic-grid">
+          {seoClusterPages.map((page) => (
+            <a class="topic-card" href={`/${page.slug}`}>
+              <span>{page.keyword}</span>
+              <strong>{page.title}</strong>
+              <p>{page.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
       <section class="section proof-section" id="proof">
         <div class="section-heading">
           <p class="eyebrow">Finding statuses</p>
@@ -160,6 +308,21 @@ const pageDescription =
               <span>{item.effect}</span>
               <p>{item.detail}</p>
             </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section faq-section" id="faq" aria-labelledby="faq-title">
+        <div class="section-heading">
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-title">Common questions about IntentGuard.</h2>
+        </div>
+        <div class="faq-list">
+          {faqItems.map((item) => (
+            <details>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
           ))}
         </div>
       </section>
@@ -189,9 +352,12 @@ const pageDescription =
     <footer class="site-footer">
       <p>
         {brand.product} is the public product direction. {brand.engine} is the semantic
-        analysis engine inside this repository.
+        analysis engine inside this repository. Last updated {pageMetadata.lastUpdated}.
       </p>
-      <a href="#top">Back to top</a>
+      <div class="site-footer__links">
+        <a href={siteMetadata.githubUrl} rel="me noreferrer" target="_blank">GitHub</a>
+        <a href="#top">Back to top</a>
+      </div>
     </footer>
   </body>
 </html>

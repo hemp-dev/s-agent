@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">IntentGuard intent-aware code review</title>
+  <desc id="desc">Open graph image for IntentGuard, a deterministic code review guard for TypeScript pull requests.</desc>
+  <defs>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M 44 0 L 0 0 0 44" fill="none" stroke="#11100e" stroke-opacity="0.08" stroke-width="2"/>
+    </pattern>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="10" dy="10" stdDeviation="0" flood-color="#11100e" flood-opacity="1"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="#f4eddf"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect x="56" y="54" width="92" height="92" fill="#11100e"/>
+  <rect x="66" y="64" width="92" height="92" fill="none" stroke="#f04a3a" stroke-width="6"/>
+  <text x="83" y="113" fill="#fffaf0" font-family="Georgia, serif" font-size="38" font-weight="900">IG</text>
+  <text x="178" y="91" fill="#11100e" font-family="Arial, sans-serif" font-size="36" font-weight="900">IntentGuard</text>
+  <text x="180" y="127" fill="#6f675b" font-family="Arial, sans-serif" font-size="22" font-weight="700">powered by S-Agent</text>
+  <rect x="58" y="190" width="290" height="44" fill="#5fd7ff" stroke="#11100e" stroke-width="4" filter="url(#shadow)"/>
+  <text x="76" y="219" fill="#11100e" font-family="Arial, sans-serif" font-size="19" font-weight="900">Intent-Aware Code Review</text>
+  <text x="56" y="304" fill="#11100e" font-family="Georgia, serif" font-size="72" font-weight="900">Protect business</text>
+  <text x="56" y="382" fill="#11100e" font-family="Georgia, serif" font-size="72" font-weight="900">intent in every</text>
+  <text x="56" y="460" fill="#11100e" font-family="Georgia, serif" font-size="72" font-weight="900">code change.</text>
+  <text x="60" y="524" fill="#29241d" font-family="Arial, sans-serif" font-size="27" font-weight="700">Approved rules. Symbolic evidence. Proof.</text>
+  <g transform="translate(780 150) rotate(-4)" filter="url(#shadow)">
+    <rect width="330" height="190" fill="#fffaf0" stroke="#11100e" stroke-width="4"/>
+    <rect x="24" y="24" width="128" height="32" fill="#ffd84a" stroke="#11100e" stroke-width="3"/>
+    <text x="38" y="47" fill="#11100e" font-family="Arial, sans-serif" font-size="16" font-weight="900">SemanticRule</text>
+    <text x="26" y="92" fill="#11100e" font-family="monospace" font-size="20" font-weight="700">status: approved</text>
+    <text x="26" y="124" fill="#11100e" font-family="monospace" font-size="20" font-weight="700">evidence: PROVEN</text>
+    <text x="26" y="156" fill="#11100e" font-family="monospace" font-size="20" font-weight="700">action: block</text>
+  </g>
+  <g transform="translate(690 392) rotate(3)" filter="url(#shadow)">
+    <rect width="440" height="130" fill="#5fd7ff" stroke="#11100e" stroke-width="4"/>
+    <text x="28" y="52" fill="#11100e" font-family="Arial, sans-serif" font-size="28" font-weight="900">TypeScript PR guardrails</text>
+    <text x="28" y="92" fill="#11100e" font-family="Arial, sans-serif" font-size="22" font-weight="800">for architecture and business rules</text>
+  </g>
+</svg>
