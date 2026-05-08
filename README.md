@@ -7,6 +7,18 @@ and architectural intent.
 IntentGuard is the future commercial platform built on top of S-Agent Core for
 team workflows and enterprise governance.
 
+## Translations
+
+- [Русский](docs/i18n/README.ru.md)
+- [Español](docs/i18n/README.es.md)
+- [简体中文](docs/i18n/README.zh-CN.md)
+- [हिन्दी](docs/i18n/README.hi.md)
+- [العربية](docs/i18n/README.ar.md)
+- [Français](docs/i18n/README.fr.md)
+- [Português do Brasil](docs/i18n/README.pt-BR.md)
+- [Deutsch](docs/i18n/README.de.md)
+- [日本語](docs/i18n/README.ja.md)
+
 ## Problem
 
 Code can compile, pass tests, and still violate the intent of the system.
