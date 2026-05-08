@@ -523,6 +523,104 @@ code {
   line-height: 1;
 }
 
+.demo-section {
+  max-width: 1320px;
+  padding-top: 84px;
+}
+
+.demo-command-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.demo-command-row code {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  padding: 10px 12px;
+  overflow-wrap: anywhere;
+  color: var(--paper-strong);
+  font-size: 0.86rem;
+  font-weight: 900;
+  line-height: 1.2;
+  background: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 4px 4px 0 var(--yellow);
+}
+
+.demo-step-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.demo-step {
+  min-height: 314px;
+  padding: 18px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--paper-strong);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.demo-step__label {
+  display: inline-block;
+  max-width: 100%;
+  padding: 6px 8px;
+  margin-bottom: 24px;
+  overflow-wrap: anywhere;
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1.05;
+  background: var(--cyan);
+  border: 1.5px solid var(--ink);
+}
+
+.demo-step h3 {
+  margin: 0 0 12px;
+  font-family: "Zilla Slab", "Iowan Old Style", Georgia, serif;
+  font-size: 1.5rem;
+  line-height: 1.05;
+}
+
+.demo-step > code {
+  display: block;
+  min-height: 44px;
+  margin-bottom: 12px;
+  overflow-wrap: anywhere;
+  color: #342d25;
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
+.demo-step pre {
+  min-height: 112px;
+  padding: 12px;
+  margin: 0;
+  overflow-x: auto;
+  overflow-wrap: anywhere;
+  font-size: 0.72rem;
+  line-height: 1.55;
+  background: rgba(17, 16, 14, 0.07);
+  border: 1.5px solid rgba(17, 16, 14, 0.2);
+}
+
+.demo-report-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(320px, 0.72fr);
+  gap: 18px;
+  align-items: stretch;
+  margin-top: 24px;
+}
+
+.terminal--demo {
+  height: 100%;
+}
+
 .copy-stack {
   display: grid;
   gap: 18px;
@@ -1017,26 +1115,59 @@ code {
 .terminal__bar {
   display: flex;
   gap: 8px;
+  align-items: center;
+  justify-content: space-between;
   padding: 14px;
   border-bottom: 2px solid #2f2d28;
 }
 
-.terminal__bar span {
+.terminal__lights {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-right: auto;
+}
+
+.terminal__lights span {
   width: 13px;
   height: 13px;
   border: 1.5px solid var(--paper-strong);
   border-radius: 50%;
 }
 
-.terminal__bar span:nth-child(1) {
+.terminal__lights span:nth-child(1) {
   background: var(--red);
 }
 
-.terminal__bar span:nth-child(2) {
+.terminal__lights span:nth-child(2) {
   background: var(--yellow);
 }
 
-.terminal__bar span:nth-child(3) {
+.terminal__lights span:nth-child(3) {
+  background: var(--green);
+}
+
+.terminal__bar strong {
+  color: var(--paper-strong);
+  font-size: 0.9rem;
+}
+
+.terminal__bar em {
+  padding: 5px 8px;
+  color: var(--paper-strong);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+  border: 1.5px solid var(--paper-strong);
+}
+
+.terminal--blocking .terminal__bar em {
+  background: var(--red);
+}
+
+.terminal--passing .terminal__bar em {
+  color: var(--ink);
   background: var(--green);
 }
 
@@ -1047,6 +1178,14 @@ code {
   overflow-x: auto;
   font-size: 0.92rem;
   line-height: 1.6;
+}
+
+.terminal--demo pre {
+  min-height: 420px;
+}
+
+.terminal--passing pre {
+  min-height: 220px;
 }
 
 .site-footer {
@@ -1128,6 +1267,14 @@ code {
 
   .status-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .demo-step-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .demo-report-grid {
+    grid-template-columns: 1fr;
   }
 
   .answer-grid {
@@ -1267,6 +1414,7 @@ code {
 
   .signal-strip__track,
   .check-grid,
+  .demo-step-grid,
   .topic-grid,
   .section--split,
   .workflow-list {
@@ -1455,6 +1603,21 @@ code {
   .terminal pre {
     min-height: 300px;
     font-size: 0.8rem;
+  }
+
+  .demo-command-row,
+  .demo-command-row code {
+    width: 100%;
+  }
+
+  .demo-step {
+    min-height: auto;
+  }
+
+  .demo-step pre,
+  .terminal--demo pre,
+  .terminal--passing pre {
+    min-height: auto;
   }
 
   .site-footer {

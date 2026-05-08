@@ -23,7 +23,7 @@ describe("unit: Astro file indexing", () => {
     );
     await fs.writeFile(
       path.join(projectRoot, "src/content/landing.ts"),
-      "export const brand = { product: \"IntentGuard\" } as const;\n",
+      "export const brand = { product: \"AxiomGuard\" } as const;\n",
       "utf8"
     );
 

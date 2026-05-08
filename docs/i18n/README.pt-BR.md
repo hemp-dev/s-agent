@@ -7,7 +7,7 @@ S-Agent é um mecanismo open source de análise semântica para code review
 orientado por intenção. Ele verifica se mudanças em código TypeScript preservam
 a intenção de negócio e arquitetura aprovada.
 
-IntentGuard é a futura plataforma comercial construída sobre o S-Agent Core
+AxiomGuard é a futura plataforma comercial construída sobre o S-Agent Core
 para fluxos de trabalho de equipes e governança empresarial.
 
 ## Problema
@@ -200,7 +200,7 @@ não serão colocadas atrás de um paywall.
 
 S-Agent Core é o mecanismo open source de análise semântica.
 
-IntentGuard Pro e Enterprise podem adicionar futuramente fluxos de trabalho de
+AxiomGuard Pro e Enterprise podem adicionar futuramente fluxos de trabalho de
 equipes e organizações sobre o core, como:
 
 - hosted dashboard;
@@ -263,7 +263,7 @@ Leia o [modelo open-core completo](../../OPEN_CORE.md).
 - v0.2: modo básico de GitHub Action.
 - v0.3: rule packs comunitários e mais exemplos de frameworks.
 - v0.4: rascunho de plugin API e design de pontos de extensão.
-- Futuro: alpha do IntentGuard Pro para team workflows e governance.
+- Futuro: alpha do AxiomGuard Pro para team workflows e governance.
 
 Veja o [community roadmap](../community/community-roadmap.md).
 
