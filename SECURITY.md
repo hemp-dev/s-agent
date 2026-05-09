@@ -52,7 +52,7 @@ Security reports may include:
 - report generation issues that could expose data unexpectedly;
 - rule parsing or validation issues with security impact.
 
-Future commercial IntentGuard services will have separate security processes
+Future commercial AxiomGuard services will have separate security processes
 when they exist.
 
 ## Dependency security

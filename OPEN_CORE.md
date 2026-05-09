@@ -1,7 +1,7 @@
 # Open-core model
 
 S-Agent Core is the open-source semantic analysis engine for intent-aware
-code review. IntentGuard Pro and Enterprise will be commercial products built
+code review. AxiomGuard Pro and Enterprise will be commercial products built
 on top of S-Agent Core for team workflows, governance, automation, dashboards,
 and enterprise deployment.
 
@@ -32,9 +32,9 @@ S-Agent Core includes:
 - Local and basic CI usage.
 - A planned basic GitHub Action.
 
-## What is IntentGuard Pro / Enterprise?
+## What is AxiomGuard Pro / Enterprise?
 
-IntentGuard is the future commercial platform built on top of S-Agent Core.
+AxiomGuard is the future commercial platform built on top of S-Agent Core.
 It is intended for teams and organizations that need shared workflows around
 semantic code review.
 
@@ -87,7 +87,7 @@ automation, enterprise deployment, and advanced organization-level workflows.
 The boundary is simple:
 
 - S-Agent Core owns the local semantic analysis engine.
-- IntentGuard Pro / Enterprise owns hosted and team-oriented platform features.
+- AxiomGuard Pro / Enterprise owns hosted and team-oriented platform features.
 
 ## Why open-core?
 

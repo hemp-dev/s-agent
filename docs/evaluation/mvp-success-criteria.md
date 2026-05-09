@@ -48,10 +48,10 @@ The MVP succeeds when it proves that approved intent can be enforced in a small,
 
 - The first pilot can name a real rule they want enforced.
 - The product can show a useful finding or a trusted clean pass in the first session.
-- The team can explain why IntentGuard is different from SAST, a linter, and broad AI code review.
+- The team can explain why AxiomGuard is different from SAST, a linter, and broad AI code review.
 - Pricing discovery has enough signal to validate or reject per-active-contributor pricing.
 - A team can create at least 5 SemanticRules without custom engineering help.
-- A team still wants to run IntentGuard after 7 days.
+- A team still wants to run AxiomGuard after 7 days.
 
 ## Failure Conditions
 
@@ -77,4 +77,4 @@ Either outcome can be valuable. A noisy finding is not useful, even if technical
 
 A user should be able to explain the product in one sentence:
 
-> IntentGuard checks whether AI-generated and refactored code still preserves approved business and architecture intent.
+> AxiomGuard checks whether AI-generated and refactored code still preserves approved business and architecture intent.

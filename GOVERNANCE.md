@@ -92,7 +92,7 @@ Large roadmap items should start as design issues before implementation.
 
 ## Open-core boundary
 
-S-Agent Core contains the open-source semantic analysis engine. IntentGuard
+S-Agent Core contains the open-source semantic analysis engine. AxiomGuard
 Pro and Enterprise may contain future hosted, team, governance, and enterprise
 features.
 

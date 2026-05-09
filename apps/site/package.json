@@ -2,7 +2,7 @@
   "name": "@s-agent/site",
   "version": "0.1.0",
   "private": true,
-  "description": "Astro landing page for IntentGuard, powered by S-Agent.",
+  "description": "Astro landing page for AxiomGuard, powered by S-Agent.",
   "type": "module",
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",

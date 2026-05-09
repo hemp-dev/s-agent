@@ -6,9 +6,9 @@
 
 **Headline:** Protect business intent in every code change.
 
-**Subheadline:** IntentGuard turns approved engineering docs, ADRs, and project rules into deterministic pull request checks. Prevent AI-generated and refactored code from breaking business intent before it merges.
+**Subheadline:** AxiomGuard turns approved engineering docs, ADRs, and project rules into deterministic pull request checks. Prevent AI-generated and refactored code from breaking business intent before it merges.
 
-**Primary CTA:** Run IntentGuard on a Demo PR
+**Primary CTA:** Run AxiomGuard on a Demo PR
 
 **Secondary CTA:** See Example Rules
 
@@ -26,7 +26,7 @@ SAST finds vulnerabilities. Linters find style issues. AI reviewers find plausib
 
 **Headline:** Turn intent into review guardrails.
 
-IntentGuard reads approved SemanticRules and checks TypeScript changes for violations of business and architecture intent.
+AxiomGuard reads approved SemanticRules and checks TypeScript changes for violations of business and architecture intent.
 
 - Prevent layer boundary drift.
 - Flag forbidden side effects in read-only flows.
@@ -46,7 +46,7 @@ A human approves the rules that should govern review. The YAML rule file becomes
 
 ### 3. Check every PR
 
-IntentGuard indexes TypeScript code, analyzes imports and functions, verifies findings, and produces a proof-carrying report.
+AxiomGuard indexes TypeScript code, analyzes imports and functions, verifies findings, and produces a proof-carrying report.
 
 ### 4. Block only proven critical violations
 
@@ -66,9 +66,9 @@ Heuristics can inform reviewers. Only approved critical rules with deterministic
 
 **Headline:** Not another linter. Not another vague AI reviewer.
 
-IntentGuard is deterministic-first. AI can help suggest candidate rules, but it cannot create blocking findings. Blocking requires approved rules, symbolic evidence, and a trace back to source documentation.
+AxiomGuard is deterministic-first. AI can help suggest candidate rules, but it cannot create blocking findings. Blocking requires approved rules, symbolic evidence, and a trace back to source documentation.
 
-| Alternative | What it checks | What IntentGuard adds |
+| Alternative | What it checks | What AxiomGuard adds |
 | --- | --- | --- |
 | SAST | Security vulnerabilities | Product and architecture intent |
 | Linters | Style and syntax patterns | Business-specific invariants |
@@ -89,7 +89,7 @@ Encode it. Approve it. Run it on a real PR.
 
 **Is this a replacement for SAST?**
 
-No. IntentGuard complements SAST by checking business and architecture intent rather than security vulnerability classes.
+No. AxiomGuard complements SAST by checking business and architecture intent rather than security vulnerability classes.
 
 **Does it use an LLM?**
 

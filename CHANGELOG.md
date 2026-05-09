@@ -17,7 +17,7 @@ Initial open-source MVP.
 - Added clean and broken TypeScript demo projects.
 - Added S-Agent dogfood architecture rules in `rules/s-agent-architecture.rules.yml`.
 - Added evaluation fixtures, precision/recall/false-positive benchmarks, and a 50-case synthetic dataset.
-- Added product strategy docs for IntentGuard positioning, ICPs, pricing, messaging, and customer discovery.
+- Added product strategy docs for AxiomGuard positioning, ICPs, pricing, messaging, and customer discovery.
 - Added release CI for install, build, test, lint, rule validation, clean demo analysis, and self-analysis.
 - Added Apache-2.0 licensing, open-core documentation, governance, contribution, security, and code of conduct docs.
 - Added GitHub issue templates, a pull request template, and community roadmap docs.
