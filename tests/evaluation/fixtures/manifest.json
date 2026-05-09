@@ -1,0 +1,62 @@
+[
+  {
+    "name": "clean-project",
+    "directory": "clean-project",
+    "kind": "clean",
+    "expectedFindings": []
+  },
+  {
+    "name": "layer-boundary-violation",
+    "directory": "layer-boundary-violation",
+    "kind": "violation",
+    "expectedFindings": [
+      {
+        "ruleId": "EVAL-AUTH-001",
+        "status": "PROVEN",
+        "blocking": true
+      }
+    ]
+  },
+  {
+    "name": "forbidden-side-effect-violation",
+    "directory": "forbidden-side-effect-violation",
+    "kind": "violation",
+    "expectedFindings": [
+      {
+        "ruleId": "EVAL-REPORTS-001",
+        "status": "PROBABLE",
+        "blocking": false
+      }
+    ]
+  },
+  {
+    "name": "value-invariant-violation",
+    "directory": "value-invariant-violation",
+    "kind": "violation",
+    "expectedFindings": [
+      {
+        "ruleId": "EVAL-BILLING-001",
+        "status": "PROVEN",
+        "blocking": true
+      }
+    ]
+  },
+  {
+    "name": "false-positive-cases",
+    "directory": "false-positive-cases",
+    "kind": "false-positive",
+    "expectedFindings": []
+  },
+  {
+    "name": "ambiguous-cases",
+    "directory": "ambiguous-cases",
+    "kind": "ambiguous",
+    "expectedFindings": [
+      {
+        "ruleId": "EVAL-REPORTS-AMBIGUOUS-001",
+        "status": "PROBABLE",
+        "blocking": false
+      }
+    ]
+  }
+]

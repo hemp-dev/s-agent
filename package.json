@@ -10,6 +10,7 @@
     "lint": "tsc -b --pretty false",
     "test": "vitest run",
     "test:watch": "vitest",
+    "benchmark": "pnpm build && node scripts/benchmark.cjs",
     "analyze:demo": "pnpm run analyze:demo:clean",
     "analyze:demo:clean": "pnpm --filter @s-agent/cli run analyze --project ../../examples/demo-clean",
     "analyze:demo:broken": "pnpm --filter @s-agent/cli run analyze --project ../../examples/demo-broken",

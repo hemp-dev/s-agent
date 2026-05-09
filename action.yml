@@ -1,0 +1,83 @@
+name: S-Agent Core
+description: Run S-Agent Core semantic analysis with the existing CLI.
+
+inputs:
+  project:
+    description: Project directory to analyze, relative to the workflow workspace unless absolute.
+    required: false
+    default: "."
+  rules:
+    description: SemanticRule directory, relative to the workflow workspace unless absolute.
+    required: false
+    default: "rules"
+  output-format:
+    description: CLI report format. Supported values are markdown and json.
+    required: false
+    default: "markdown"
+  fail-on-blocking:
+    description: Fail the workflow when the CLI reports blocking findings.
+    required: false
+    default: "true"
+
+runs:
+  using: composite
+  steps:
+    - name: Install S-Agent CLI dependencies
+      shell: bash
+      run: |
+        set -euo pipefail
+        corepack enable
+        pnpm --dir "$GITHUB_ACTION_PATH" install --frozen-lockfile
+
+    - name: Build S-Agent CLI
+      shell: bash
+      run: |
+        set -euo pipefail
+        pnpm --dir "$GITHUB_ACTION_PATH" build
+
+    - name: Run S-Agent CLI
+      shell: bash
+      env:
+        PROJECT_INPUT: ${{ inputs.project }}
+        RULES_INPUT: ${{ inputs.rules }}
+        OUTPUT_FORMAT: ${{ inputs.output-format }}
+        FAIL_ON_BLOCKING: ${{ inputs.fail-on-blocking }}
+      run: |
+        set -euo pipefail
+
+        case "$OUTPUT_FORMAT" in
+          markdown)
+            FORMAT_FLAG="--markdown"
+            ;;
+          json)
+            FORMAT_FLAG="--json"
+            ;;
+          *)
+            echo "::error title=Invalid output-format::Expected 'markdown' or 'json', got '$OUTPUT_FORMAT'."
+            exit 1
+            ;;
+        esac
+
+        case "$FAIL_ON_BLOCKING" in
+          true|false)
+            ;;
+          *)
+            echo "::error title=Invalid fail-on-blocking::Expected 'true' or 'false', got '$FAIL_ON_BLOCKING'."
+            exit 1
+            ;;
+        esac
+
+        set +e
+        node "$GITHUB_ACTION_PATH/apps/cli/dist/index.js" analyze \
+          --project "$PROJECT_INPUT" \
+          --rules "$RULES_INPUT" \
+          "$FORMAT_FLAG"
+        STATUS=$?
+        set -e
+
+        if [ "$STATUS" -ne 0 ] && [ "$FAIL_ON_BLOCKING" = "false" ]; then
+          echo "S-Agent found blocking findings, but fail-on-blocking=false; continuing."
+          exit 0
+        fi
+
+        exit "$STATUS"

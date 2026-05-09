@@ -105,6 +105,15 @@ pnpm test
 pnpm lint
 ```
 
+Run the benchmark suite:
+
+```sh
+pnpm benchmark
+```
+
+Benchmark results and methodology live in the
+[benchmark leaderboard](docs/benchmarks/LEADERBOARD.md).
+
 Run the clean demo analysis:
 
 ```sh
@@ -141,6 +150,46 @@ when you want to see the blocking report path.
 
 After building, the CLI entrypoint is available as the workspace binary package
 `@s-agent/cli` with the `s-agent` bin.
+
+## GitHub Action
+
+Run S-Agent Core in GitHub Actions with the same CLI behavior used locally:
+
+```yaml
+name: S-Agent
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  semantic-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run S-Agent
+        uses: s-agent/s-agent@v0.2.0
+        with:
+          project: "."
+          rules: "rules"
+          output-format: "markdown"
+          fail-on-blocking: "true"
+```
+
+The action calls the existing CLI and fails when approved critical `PROVEN`
+findings block the run. Set `fail-on-blocking: "false"` to keep the report in
+the workflow log without failing the job. Pull request comments are not
+implemented yet.
+
+See the full [GitHub Action guide](docs/github-action.md) and copyable
+[workflow example](examples/github-action/s-agent.yml).
 
 ## Example SemanticRule
 
@@ -240,7 +289,7 @@ S-Agent Core is open source and includes:
 - Evaluation fixtures.
 - Synthetic benchmarks.
 - Basic CI usage.
-- A planned basic GitHub Action.
+- A basic GitHub Action.
 
 The open-source core must remain useful on its own. Existing MVP features will
 not be moved behind a paywall.
@@ -292,6 +341,7 @@ Read the full [open-core model](OPEN_CORE.md).
 - `rules`: S-Agent's own dogfood rules, including package boundary rules.
 - `examples`: clean and intentionally broken TypeScript demo projects.
 - `tests/evaluation`: semantic benchmark fixtures and metric tests.
+- `docs/benchmarks`: benchmark methodology and leaderboard.
 - `docs/community`: community roadmap and contribution ideas.
 
 ## Current limitations
