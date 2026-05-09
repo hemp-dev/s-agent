@@ -394,8 +394,11 @@ code {
 
 .credit-note {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr) auto;
-  gap: 24px;
+  grid-template-areas:
+    "label body link"
+    "title body link";
+  grid-template-columns: minmax(280px, 0.48fr) minmax(0, 1fr) auto;
+  gap: 16px 28px;
   align-items: center;
   padding: 22px;
   margin-top: 36px;
@@ -406,16 +409,23 @@ code {
 }
 
 .credit-note .eyebrow {
+  grid-area: label;
+  width: max-content;
+  max-width: 100%;
   margin: 0;
+  white-space: nowrap;
   background: var(--paper-strong);
 }
 
 .credit-note h3 {
+  grid-area: title;
   font-size: 2rem;
   line-height: 1.02;
 }
 
-.credit-note p {
+.credit-note > p:not(.eyebrow) {
+  grid-area: body;
+  max-width: 780px;
   margin: 0;
   color: #29241d;
   font-weight: 800;
@@ -424,12 +434,15 @@ code {
 
 .credit-note a {
   display: inline-flex;
+  grid-area: link;
   min-height: 46px;
   align-items: center;
   justify-content: center;
+  justify-self: end;
   padding: 10px 14px;
   font-weight: 900;
   line-height: 1.1;
+  white-space: nowrap;
   background: var(--paper-strong);
   border: 2px solid var(--ink);
   border-radius: var(--radius);
@@ -1460,6 +1473,16 @@ code {
 
   .credit-note {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "label"
+      "title"
+      "body"
+      "link";
+    align-items: start;
+  }
+
+  .credit-note a {
+    justify-self: start;
   }
 
   .answer-grid {
