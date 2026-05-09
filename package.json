@@ -9,9 +9,10 @@
     "dev": "astro dev --host 127.0.0.1",
     "build": "astro build",
     "preview": "astro preview --host 127.0.0.1",
-    "test": "vitest run --root ../.. apps/site/src"
+    "test": "vitest run src"
   },
   "devDependencies": {
-    "astro": "^5.13.0"
+    "astro": "^5.13.0",
+    "vitest": "^2.1.8"
   }
 }

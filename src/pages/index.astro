@@ -7,11 +7,13 @@ import {
   faqItems,
   findingStatuses,
   heroDefinition,
+  inspirationCredit,
   pageMetadata,
   proofChain,
   realDemo,
   realDemoReports,
   realDemoSteps,
+  releaseUpdate,
   semanticRuleSnippet,
   siteMetadata,
   violationTypes,
@@ -93,6 +95,7 @@ const faqSchema = {
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="#answers">What it is</a>
+        <a href="#release">v0.2.0</a>
         <a href="#demo">Demo</a>
         <a href="#rules">Rules</a>
         <a href="#faq">FAQ</a>
@@ -111,11 +114,12 @@ const faqSchema = {
           <p class="hero__definition">{heroDefinition}</p>
           <div class="hero__actions" aria-label="Hero actions">
             <a class="button button--primary" href="#demo">Run the real demo</a>
-            <a class="button button--secondary" href="#rules">Read the rule shape</a>
+            <a class="button button--secondary" href="#release">See v0.2.0</a>
           </div>
           <ul class="trust-list" aria-label="Trust principles">
+            <li>GitHub Action for CI</li>
+            <li>Benchmark leaderboard is public</li>
             <li>Approved rules are source of truth</li>
-            <li>LLM cannot create blocking findings</li>
             <li>PROVEN critical evidence can block</li>
           </ul>
         </div>
@@ -161,6 +165,50 @@ const faqSchema = {
             </ol>
           </article>
         </div>
+      </section>
+
+      <section class="release-band" id="release" aria-labelledby="release-title">
+        <div class="release-band__intro">
+          <p class="eyebrow">{releaseUpdate.version}</p>
+          <h2 id="release-title">{releaseUpdate.title}</h2>
+          <p>{releaseUpdate.body}</p>
+          <div class="release-actions" aria-label="Release links">
+            <a class="button button--primary" href={siteMetadata.releaseUrl} target="_blank" rel="noreferrer">
+              {releaseUpdate.cta}
+            </a>
+            <a class="button button--secondary" href={siteMetadata.benchmarkUrl} target="_blank" rel="noreferrer">
+              Open leaderboard
+            </a>
+          </div>
+        </div>
+
+        <div class="release-grid">
+          {releaseUpdate.highlights.map((item) => (
+            <article class="release-card">
+              <span>{item.label}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="metric-strip" aria-label="v0.2.0 benchmark metrics">
+          {releaseUpdate.metrics.map((metric) => (
+            <article class="metric-tile">
+              <strong>{metric.value}</strong>
+              <span>{metric.label}</span>
+            </article>
+          ))}
+        </div>
+
+        <aside class="credit-note" aria-labelledby="credit-title">
+          <p class="eyebrow">{inspirationCredit.label}</p>
+          <h3 id="credit-title">{inspirationCredit.title}</h3>
+          <p>{inspirationCredit.body}</p>
+          <a href={siteMetadata.karpathyUrl} target="_blank" rel="noreferrer">
+            {inspirationCredit.linkText}
+          </a>
+        </aside>
       </section>
 
       <section class="section demo-section" id="demo" aria-labelledby="demo-title">

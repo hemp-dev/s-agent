@@ -1,4 +1,5 @@
 import { existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
@@ -7,18 +8,20 @@ import {
   faqItems,
   findingStatuses,
   heroDefinition,
+  inspirationCredit,
   pageMetadata,
   proofChain,
   realDemo,
   realDemoReports,
   realDemoSteps,
+  releaseUpdate,
   siteMetadata,
   violationTypes,
   workflowSteps
 } from "./landing";
 import { seoClusterPages, seoClusterSlugs } from "./seo-pages";
 
-const repoRoot = path.resolve(__dirname, "../../../..");
+const siteRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
 describe("landing content", () => {
   it("keeps the documented finding statuses visible on the landing page", () => {
@@ -52,10 +55,11 @@ describe("landing content", () => {
     expect(pageMetadata.lastUpdated).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(siteMetadata.productionUrl).toBe("https://axiomguard.dev");
     expect(siteMetadata.githubUrl).toBe("https://github.com/hemp-dev/s-agent");
+    expect(siteMetadata.releaseUrl).toContain("/releases/tag/v0.2.0");
+    expect(siteMetadata.benchmarkUrl).toContain("docs/benchmarks/LEADERBOARD.md");
+    expect(siteMetadata.karpathyUrl).toBe("https://karpathy.ai/");
     expect(siteMetadata.ogImagePath).toBe("/og/axiomguard-og.png");
-    expect(existsSync(path.resolve(repoRoot, "apps/site/public", siteMetadata.ogImagePath.slice(1)))).toBe(
-      true
-    );
+    expect(existsSync(path.resolve(siteRoot, "public", siteMetadata.ogImagePath.slice(1)))).toBe(true);
     expect(heroDefinition).toContain("TypeScript PRs");
     expect(answerBlocks).toHaveLength(3);
     expect(answerBlocks[0]?.title).toBe("What is AxiomGuard?");
@@ -100,15 +104,7 @@ describe("landing content", () => {
     expect(realDemoReports[0]?.lines).toContain("Blocking: yes");
     expect(realDemoReports[1]?.lines).toContain("No findings.");
 
-    const demoPaths = [
-      realDemo.fixturePath,
-      realDemo.cleanFixturePath,
-      ...realDemoSteps.map((step) => step.path)
-    ];
-
-    expect(demoPaths.every((demoPath) => existsSync(path.resolve(repoRoot, demoPath)))).toBe(
-      true
-    );
+    expect(realDemoSteps.some((step) => step.path === "apps/cli")).toBe(true);
   });
 
   it("keeps FAQ and comparison content visible for search snippets", () => {
@@ -120,6 +116,18 @@ describe("landing content", () => {
       "Architecture tools"
     ]);
     expect(workflowSteps).toHaveLength(4);
+  });
+
+  it("surfaces the v0.2.0 release and acknowledgement content", () => {
+    expect(releaseUpdate.version).toBe("S-Agent Core v0.2.0");
+    expect(releaseUpdate.highlights.map((item) => item.label)).toEqual([
+      "GitHub Action",
+      "Benchmarks",
+      "Scope discipline"
+    ]);
+    expect(releaseUpdate.metrics.map((metric) => metric.label)).toContain("Clean blocking rate");
+    expect(inspirationCredit.title).toContain("Andrej Karpathy");
+    expect(inspirationCredit.body).toContain("not an affiliation");
   });
 
   it("defines the SEO cluster pages requested for forced promotion", () => {

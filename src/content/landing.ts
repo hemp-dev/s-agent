@@ -17,11 +17,68 @@ export const pageMetadata = {
 export const siteMetadata = {
   productionUrl: "https://axiomguard.dev",
   githubUrl: "https://github.com/hemp-dev/s-agent",
+  releaseUrl: "https://github.com/hemp-dev/s-agent/releases/tag/v0.2.0",
+  benchmarkUrl: "https://github.com/hemp-dev/s-agent/blob/main/docs/benchmarks/LEADERBOARD.md",
+  karpathyUrl: "https://karpathy.ai/",
   ogImagePath: "/og/axiomguard-og.png"
 } as const;
 
 export const heroDefinition =
   "AxiomGuard is an intent-aware code review guard for TypeScript PRs that turns approved rules into proof-carrying checks." as const;
+
+export const releaseUpdate = {
+  version: "S-Agent Core v0.2.0",
+  title: "GitHub Action and benchmark infrastructure are now public.",
+  body:
+    "The new release turns S-Agent from a local CLI demo into a CI-ready semantic guard: teams can run approved SemanticRules in GitHub Actions and track quality with a reproducible benchmark leaderboard.",
+  cta: "Read the v0.2.0 release",
+  highlights: [
+    {
+      label: "GitHub Action",
+      title: "Run S-Agent in CI",
+      body:
+        "Use the composite action to call the existing CLI with project, rules, output-format, and fail-on-blocking inputs."
+    },
+    {
+      label: "Benchmarks",
+      title: "Measure semantic review quality",
+      body:
+        "Run pnpm benchmark for JSON output, a Markdown table, precision, recall, false-positive rate, PROVEN rate, runtime, and clean blocking rate."
+    },
+    {
+      label: "Scope discipline",
+      title: "No hidden analyzer changes",
+      body:
+        "The release adds CI and measurement infrastructure without PR comments, hosted services, dashboards, or artificial analyzer tuning."
+    }
+  ],
+  metrics: [
+    {
+      label: "Precision",
+      value: "1.000"
+    },
+    {
+      label: "Recall",
+      value: "1.000"
+    },
+    {
+      label: "False positive rate",
+      value: "0.000"
+    },
+    {
+      label: "Clean blocking rate",
+      value: "0.000"
+    }
+  ]
+} as const;
+
+export const inspirationCredit = {
+  label: "Acknowledgement",
+  title: "With thanks to Andrej Karpathy.",
+  body:
+    "AxiomGuard's benchmark direction borrows from a public engineering taste visible in Andrej Karpathy's writing and teaching: small reproducible tools, plain files, explicit metrics, and systems humans can inspect. This is a note of gratitude, not an affiliation.",
+  linkText: "Visit karpathy.ai"
+} as const;
 
 export const answerBlocks = [
   {
