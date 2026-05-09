@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">IntentGuard intent-aware code review</title>
-  <desc id="desc">Open graph image for IntentGuard, a deterministic code review guard for TypeScript pull requests.</desc>
+  <title id="title">AxiomGuard intent-aware code review</title>
+  <desc id="desc">Open graph image for AxiomGuard, a deterministic code review guard for TypeScript pull requests.</desc>
   <defs>
     <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
       <path d="M 44 0 L 0 0 0 44" fill="none" stroke="#11100e" stroke-opacity="0.08" stroke-width="2"/>
@@ -13,8 +13,8 @@
   <rect width="1200" height="630" fill="url(#grid)"/>
   <rect x="56" y="54" width="92" height="92" fill="#11100e"/>
   <rect x="66" y="64" width="92" height="92" fill="none" stroke="#f04a3a" stroke-width="6"/>
-  <text x="83" y="113" fill="#fffaf0" font-family="Georgia, serif" font-size="38" font-weight="900">IG</text>
-  <text x="178" y="91" fill="#11100e" font-family="Arial, sans-serif" font-size="36" font-weight="900">IntentGuard</text>
+  <text x="78" y="113" fill="#fffaf0" font-family="Georgia, serif" font-size="38" font-weight="900">AG</text>
+  <text x="178" y="91" fill="#11100e" font-family="Arial, sans-serif" font-size="36" font-weight="900">AxiomGuard</text>
   <text x="180" y="127" fill="#6f675b" font-family="Arial, sans-serif" font-size="22" font-weight="700">powered by S-Agent</text>
   <rect x="58" y="190" width="290" height="44" fill="#5fd7ff" stroke="#11100e" stroke-width="4" filter="url(#shadow)"/>
   <text x="76" y="219" fill="#11100e" font-family="Arial, sans-serif" font-size="19" font-weight="900">Intent-Aware Code Review</text>

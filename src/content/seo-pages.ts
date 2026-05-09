@@ -26,7 +26,7 @@ export const seoClusterPages: SeoClusterPage[] = [
       "Semantic code review checks whether a TypeScript pull request preserves approved business and architecture intent, not only syntax, style, or security patterns.",
     hero: "Semantic code review catches code changes that are technically valid but semantically wrong for the system.",
     definition:
-      "Semantic code review evaluates whether code preserves the meaning a team already approved in documentation, architecture decisions, and product rules. IntentGuard implements this with approved SemanticRule YAML, deterministic TypeScript analysis, and proof-carrying findings.",
+      "Semantic code review evaluates whether code preserves the meaning a team already approved in documentation, architecture decisions, and product rules. AxiomGuard implements this with approved SemanticRule YAML, deterministic TypeScript analysis, and proof-carrying findings.",
     proofPoints: [
       "Approved SemanticRules are the source of truth.",
       "Deterministic symbolic evidence creates PROVEN findings.",
@@ -46,7 +46,7 @@ export const seoClusterPages: SeoClusterPage[] = [
       {
         question: "Can semantic code review block a pull request?",
         answer:
-          "IntentGuard can block only when an approved critical SemanticRule produces a PROVEN deterministic finding in block mode."
+          "AxiomGuard can block only when an approved critical SemanticRule produces a PROVEN deterministic finding in block mode."
       }
     ]
   },
@@ -58,7 +58,7 @@ export const seoClusterPages: SeoClusterPage[] = [
       "Intent-aware code review verifies that every pull request preserves documented business, product, and architecture rules.",
     hero: "Intent-aware code review gives every pull request a memory of the rules your team already agreed to follow.",
     definition:
-      "Intent-aware code review checks code changes against approved intent from CLAUDE.md, READMEs, ADRs, and architecture notes. IntentGuard turns those approved rules into deterministic TypeScript checks with evidence a reviewer can audit.",
+      "Intent-aware code review checks code changes against approved intent from CLAUDE.md, READMEs, ADRs, and architecture notes. AxiomGuard turns those approved rules into deterministic TypeScript checks with evidence a reviewer can audit.",
     proofPoints: [
       "Candidate rules can come from documentation, but a human approves enforcement.",
       "The YAML rule file remains the enforceable source of truth.",
@@ -78,7 +78,7 @@ export const seoClusterPages: SeoClusterPage[] = [
       {
         question: "Does intent-aware code review rely on an LLM?",
         answer:
-          "IntentGuard does not use an LLM as the source of truth for blocking. LLMs may suggest candidate rules or explanations, but approved SemanticRules decide enforcement."
+          "AxiomGuard does not use an LLM as the source of truth for blocking. LLMs may suggest candidate rules or explanations, but approved SemanticRules decide enforcement."
       }
     ]
   },
@@ -90,7 +90,7 @@ export const seoClusterPages: SeoClusterPage[] = [
       "AI code review guardrails help teams keep AI-generated and refactored code aligned with approved business and architecture rules.",
     hero: "AI-generated code can pass tests and still violate business intent. Guardrails make those rules explicit before merge.",
     definition:
-      "AI code review guardrails are deterministic checks that constrain AI-assisted changes with approved project rules. IntentGuard verifies TypeScript pull requests against SemanticRules so AI-written code must respect the same intent as human-written code.",
+      "AI code review guardrails are deterministic checks that constrain AI-assisted changes with approved project rules. AxiomGuard verifies TypeScript pull requests against SemanticRules so AI-written code must respect the same intent as human-written code.",
     proofPoints: [
       "Prompts and repository context are helpful, but they are not enforceable policy.",
       "Approved rules create auditable findings with deterministic evidence.",
@@ -108,9 +108,9 @@ export const seoClusterPages: SeoClusterPage[] = [
           "AI-generated code can be syntactically correct while missing business context. Guardrails check approved rules that prompts and tests may not enforce."
       },
       {
-        question: "Is IntentGuard an AI reviewer?",
+        question: "Is AxiomGuard an AI reviewer?",
         answer:
-          "No. IntentGuard is deterministic-first. It can complement AI reviewers, but blocking findings come from approved SemanticRules and symbolic evidence."
+          "No. AxiomGuard is deterministic-first. It can complement AI reviewers, but blocking findings come from approved SemanticRules and symbolic evidence."
       }
     ]
   },
@@ -120,9 +120,9 @@ export const seoClusterPages: SeoClusterPage[] = [
     title: "Architecture Drift Prevention for Pull Requests",
     description:
       "Architecture drift prevention catches pull requests that violate documented module boundaries and approved architecture decisions.",
-    hero: "Architecture drift starts with one reasonable import. IntentGuard catches boundary violations before they become the new normal.",
+    hero: "Architecture drift starts with one reasonable import. AxiomGuard catches boundary violations before they become the new normal.",
     definition:
-      "Architecture drift prevention keeps code changes aligned with approved architecture decisions. IntentGuard checks TypeScript imports and scoped rules so teams can stop layer boundary violations before they merge.",
+      "Architecture drift prevention keeps code changes aligned with approved architecture decisions. AxiomGuard checks TypeScript imports and scoped rules so teams can stop layer boundary violations before they merge.",
     proofPoints: [
       "Rules can encode boundaries such as auth must not import billing.",
       "Findings show the importing file, resolved edge, violated invariant, and status.",
@@ -140,9 +140,9 @@ export const seoClusterPages: SeoClusterPage[] = [
           "Architecture drift happens when code gradually diverges from approved design decisions, often through small dependencies, shortcuts, or refactors that look harmless in isolation."
       },
       {
-        question: "How does IntentGuard prevent architecture drift?",
+        question: "How does AxiomGuard prevent architecture drift?",
         answer:
-          "IntentGuard encodes approved boundaries as SemanticRules, analyzes TypeScript changes, and reports proof-carrying findings when a pull request violates those boundaries."
+          "AxiomGuard encodes approved boundaries as SemanticRules, analyzes TypeScript changes, and reports proof-carrying findings when a pull request violates those boundaries."
       }
     ]
   },
@@ -152,9 +152,9 @@ export const seoClusterPages: SeoClusterPage[] = [
     title: "Business Logic Regression Prevention in Code Review",
     description:
       "Business logic regression prevention checks pull requests for rule violations such as unsafe side effects, broken product invariants, and invalid thresholds.",
-    hero: "Business logic regressions are often valid code with the wrong meaning. IntentGuard checks the rules tests and linters miss.",
+    hero: "Business logic regressions are often valid code with the wrong meaning. AxiomGuard checks the rules tests and linters miss.",
     definition:
-      "Business logic regression prevention protects product rules such as pricing limits, entitlement assumptions, approval flows, and read-only behavior. IntentGuard turns those rules into deterministic checks over TypeScript changes.",
+      "Business logic regression prevention protects product rules such as pricing limits, entitlement assumptions, approval flows, and read-only behavior. AxiomGuard turns those rules into deterministic checks over TypeScript changes.",
     proofPoints: [
       "Value invariants can flag obvious numeric thresholds that exceed approved limits.",
       "Forbidden side-effect rules can identify writes or emitted events in read-only flows.",
@@ -172,7 +172,7 @@ export const seoClusterPages: SeoClusterPage[] = [
           "Tests usually cover known examples. Business logic regressions can appear when a change is type-correct but violates an assumption documented outside the code path being tested."
       },
       {
-        question: "What business rules can IntentGuard check today?",
+        question: "What business rules can AxiomGuard check today?",
         answer:
           "The MVP focuses on layer boundary violations, forbidden side effects, forbidden imports, and obvious value invariant violations in TypeScript projects."
       }

@@ -1,5 +1,5 @@
 export const brand = {
-  product: "IntentGuard",
+  product: "AxiomGuard",
   engine: "S-Agent",
   category: "Intent-Aware Code Review",
   headline: "Protect business intent in every code change.",
@@ -8,26 +8,26 @@ export const brand = {
 } as const;
 
 export const pageMetadata = {
-  title: "IntentGuard - Intent-Aware Code Review for TypeScript PRs",
+  title: "AxiomGuard - Intent-Aware Code Review for TypeScript PRs",
   description:
-    "IntentGuard is an intent-aware code review tool that turns approved engineering docs into deterministic TypeScript pull request checks with proof-carrying findings.",
-  lastUpdated: "2026-05-08"
+    "AxiomGuard is an intent-aware code review tool that turns approved engineering docs into deterministic TypeScript pull request checks with proof-carrying findings.",
+  lastUpdated: "2026-05-09"
 } as const;
 
 export const siteMetadata = {
-  productionUrl: "https://intentguard.dev",
-  githubUrl: "https://github.com/muthukumar-js-dev/intent-guard",
-  ogImagePath: "/og/intentguard-og.png"
+  productionUrl: "https://axiomguard.dev",
+  githubUrl: "https://github.com/hemp-dev/s-agent",
+  ogImagePath: "/og/axiomguard-og.png"
 } as const;
 
 export const heroDefinition =
-  "IntentGuard is an intent-aware code review guard for TypeScript PRs that turns approved rules into proof-carrying checks." as const;
+  "AxiomGuard is an intent-aware code review guard for TypeScript PRs that turns approved rules into proof-carrying checks." as const;
 
 export const answerBlocks = [
   {
-    title: "What is IntentGuard?",
+    title: "What is AxiomGuard?",
     body:
-      "IntentGuard is an intent-aware code review tool for engineering teams that need pull requests to preserve approved business and architecture rules. It turns SemanticRule YAML into deterministic TypeScript checks and reports proof-carrying findings reviewers can audit."
+      "AxiomGuard is an intent-aware code review tool for engineering teams that need pull requests to preserve approved business and architecture rules. It turns SemanticRule YAML into deterministic TypeScript checks and reports proof-carrying findings reviewers can audit."
   },
   {
     title: "What is intent-aware code review?",
@@ -37,7 +37,7 @@ export const answerBlocks = [
   {
     title: "Who is it for?",
     body:
-      "IntentGuard is built for TypeScript-heavy teams using AI coding tools, large refactors, or fast-moving product engineering workflows. It is most useful when important rules live in ADRs, READMEs, CLAUDE.md, or senior engineers' repeated review comments."
+      "AxiomGuard is built for TypeScript-heavy teams using AI coding tools, large refactors, or fast-moving product engineering workflows. It is most useful when important rules live in ADRs, READMEs, CLAUDE.md, or senior engineers' repeated review comments."
   }
 ] as const;
 
@@ -63,12 +63,69 @@ export const workflowSteps = [
   {
     title: "Check every PR",
     body:
-      "IntentGuard indexes TypeScript code, analyzes imports and functions, verifies findings, and prints a proof-carrying report."
+      "AxiomGuard indexes TypeScript code, analyzes imports and functions, verifies findings, and prints a proof-carrying report."
   },
   {
     title: "Block only proof",
     body:
       "Only PROVEN findings from approved critical rules in block mode can stop a merge."
+  }
+] as const;
+
+export const realDemo = {
+  title: "Run the repo's real TypeScript demo.",
+  body:
+    "The landing demo uses the same fixture shipped in this repository: a CLAUDE.md rule, an approved SemanticRule, a TypeScript import violation, and the CLI report that blocks only after symbolic proof.",
+  fixturePath: "examples/demo-typescript-app",
+  cleanFixturePath: "examples/demo-typescript-app-clean",
+  brokenCommand: "pnpm analyze:demo:broken",
+  cleanCommand: "pnpm analyze:demo"
+} as const;
+
+export const realDemoSteps = [
+  {
+    label: "CLAUDE.md",
+    title: "Documented intent",
+    path: "examples/demo-typescript-app/CLAUDE.md",
+    lines: [
+      "The authentication layer is identity-only.",
+      "It must not import billing code or trigger billing side effects directly."
+    ]
+  },
+  {
+    label: "SemanticRule",
+    title: "Approved guardrail",
+    path: "examples/demo-typescript-app/rules/auth.rules.yml",
+    lines: [
+      "rule_id: INV-AUTH-001",
+      "status: approved",
+      "severity: critical",
+      "from: src/auth/**",
+      "to: src/billing/**",
+      "mode: block"
+    ]
+  },
+  {
+    label: "TypeScript change",
+    title: "Violating edge",
+    path: "examples/demo-typescript-app/src/auth/session.ts",
+    lines: [
+      'import { BillingService } from "../billing/billing-service";',
+      "const billing = new BillingService();",
+      'billing.recordSessionStart({ userId, reason: "auth-started" });'
+    ]
+  },
+  {
+    label: "Proof",
+    title: "Blocking evidence",
+    path: "apps/cli",
+    lines: [
+      "Changed file: src/auth/session.ts",
+      "Evidence: import edge auth -> billing",
+      "Status: PROVEN",
+      "Severity: critical",
+      "Blocking: yes"
+    ]
   }
 ] as const;
 
@@ -146,12 +203,12 @@ export const findingStatuses = [
 
 export const faqItems = [
   {
-    question: "Is IntentGuard a replacement for SAST?",
+    question: "Is AxiomGuard a replacement for SAST?",
     answer:
-      "No. IntentGuard complements SAST by checking business and architecture intent rather than security vulnerability classes."
+      "No. AxiomGuard complements SAST by checking business and architecture intent rather than security vulnerability classes."
   },
   {
-    question: "Does IntentGuard use an LLM?",
+    question: "Does AxiomGuard use an LLM?",
     answer:
       "The MVP does not use an LLM for enforcement. Future LLM features may suggest candidate rules or explanations, but approved SemanticRules remain the source of truth."
   },
@@ -209,13 +266,53 @@ export const diffLines = [
 
 export const cliReportLines = [
   "$ pnpm analyze:demo:broken",
+  "# S-Agent Report",
   "",
-  "PROVEN critical finding",
-  "rule_id: AUTH-BOUNDARY-001",
-  "violated invariant: auth must not import billing",
-  "changed file: src/auth/session.ts",
-  "evidence: import edge auth -> billing",
-  "status: PROVEN",
+  "Project: examples/demo-typescript-app",
   "",
-  "Merge blocked: approved critical rule with proof."
+  "## Violation: INV-AUTH-001",
+  "",
+  "Changed file: src/auth/session.ts",
+  "Changed symbol: module",
+  "",
+  "Problem: Layer boundary violation:",
+  "src/auth/session.ts imports ../billing/billing-service.",
+  "",
+  "Why this matters:",
+  "The authentication layer is identity-only;",
+  "billing behavior must stay inside the billing domain.",
+  "",
+  "Evidence:",
+  "- src/auth/session.ts:1 - forbidden boundary",
+  "- CLAUDE.md:3 - CLAUDE.md#authentication-module",
+  "",
+  "Status: PROVEN",
+  "Severity: critical",
+  "Blocking: yes"
+] as const;
+
+export const cleanCliReportLines = [
+  "$ pnpm analyze:demo",
+  "# S-Agent Report",
+  "",
+  "Project: examples/demo-typescript-app-clean",
+  "",
+  "No findings."
+] as const;
+
+export const realDemoReports = [
+  {
+    title: "Broken fixture",
+    outcome: "Blocks",
+    tone: "blocking",
+    ariaLabel: "CLI output for the broken demo fixture with a proven blocking finding",
+    lines: cliReportLines
+  },
+  {
+    title: "Clean fixture",
+    outcome: "Passes",
+    tone: "passing",
+    ariaLabel: "CLI output for the clean demo fixture with no findings",
+    lines: cleanCliReportLines
+  }
 ] as const;

@@ -2,7 +2,6 @@
 import {
   answerBlocks,
   brand,
-  cliReportLines,
   comparisonRows,
   diffLines,
   faqItems,
@@ -10,6 +9,9 @@ import {
   heroDefinition,
   pageMetadata,
   proofChain,
+  realDemo,
+  realDemoReports,
+  realDemoSteps,
   semanticRuleSnippet,
   siteMetadata,
   violationTypes,
@@ -82,8 +84,8 @@ const faqSchema = {
   </head>
   <body>
     <header class="site-header">
-      <a class="brand-mark" href="#top" aria-label="IntentGuard home">
-        <span class="brand-mark__sigil">IG</span>
+      <a class="brand-mark" href="#top" aria-label="AxiomGuard home">
+        <span class="brand-mark__sigil">AG</span>
         <span>
           <strong>{brand.product}</strong>
           <small>powered by {brand.engine}</small>
@@ -91,6 +93,7 @@ const faqSchema = {
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="#answers">What it is</a>
+        <a href="#demo">Demo</a>
         <a href="#rules">Rules</a>
         <a href="#faq">FAQ</a>
         <a href="#proof">Proof</a>
@@ -107,7 +110,7 @@ const faqSchema = {
           <p class="hero__lede">{brand.subheadline}</p>
           <p class="hero__definition">{heroDefinition}</p>
           <div class="hero__actions" aria-label="Hero actions">
-            <a class="button button--primary" href="#cli">Run the demo</a>
+            <a class="button button--primary" href="#demo">Run the real demo</a>
             <a class="button button--secondary" href="#rules">Read the rule shape</a>
           </div>
           <ul class="trust-list" aria-label="Trust principles">
@@ -160,12 +163,57 @@ const faqSchema = {
         </div>
       </section>
 
+      <section class="section demo-section" id="demo" aria-labelledby="demo-title">
+        <div class="section-heading">
+          <p class="eyebrow">Real repo demo</p>
+          <h2 id="demo-title">{realDemo.title}</h2>
+          <p>{realDemo.body}</p>
+        </div>
+
+        <div class="demo-command-row" aria-label="Demo commands">
+          <code>{realDemo.brokenCommand}</code>
+          <code>{realDemo.cleanCommand}</code>
+        </div>
+
+        <div class="demo-step-grid">
+          {realDemoSteps.map((step) => (
+            <article class="demo-step">
+              <span class="demo-step__label">{step.label}</span>
+              <h3>{step.title}</h3>
+              <code>{step.path}</code>
+              <pre>{step.lines.join("\n")}</pre>
+            </article>
+          ))}
+        </div>
+
+        <div class="demo-report-grid">
+          {realDemoReports.map((report) => (
+            <article
+              class={`terminal terminal--demo terminal--${report.tone}`}
+              role="img"
+              aria-label={report.ariaLabel}
+            >
+              <div class="terminal__bar">
+                <div class="terminal__lights" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <strong>{report.title}</strong>
+                <em>{report.outcome}</em>
+              </div>
+              <pre>{report.lines.join("\n")}</pre>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section class="section answer-section" id="answers" aria-labelledby="answers-title">
         <div class="section-heading">
           <p class="eyebrow">Intent-aware review</p>
-          <h2 id="answers-title">What is IntentGuard?</h2>
+          <h2 id="answers-title">What is AxiomGuard?</h2>
           <p>
-            IntentGuard gives reviewers concise, source-backed answers about what
+            AxiomGuard gives reviewers concise, source-backed answers about what
             changed, which approved rule was violated, and why the finding can or
             cannot block.
           </p>
@@ -198,7 +246,7 @@ const faqSchema = {
         </div>
         <div class="copy-stack">
           <p>
-            IntentGuard starts where teams already write intent: CLAUDE.md, READMEs,
+            AxiomGuard starts where teams already write intent: CLAUDE.md, READMEs,
             ADRs, and architecture notes. Candidate rules can be suggested, but the
             approved YAML file is the source of truth.
           </p>
@@ -223,7 +271,7 @@ const faqSchema = {
       <section class="section workflow-section" id="how" aria-labelledby="how-title">
         <div class="section-heading">
           <p class="eyebrow">How it works</p>
-          <h2 id="how-title">How does IntentGuard check a pull request?</h2>
+          <h2 id="how-title">How does AxiomGuard check a pull request?</h2>
           <p>
             The review path stays small and auditable: approved rules, TypeScript
             analysis, symbolic evidence, and conservative blocking.
@@ -242,9 +290,9 @@ const faqSchema = {
       <section class="section comparison-section" id="compare" aria-labelledby="compare-title">
         <div class="section-heading">
           <p class="eyebrow">Comparison</p>
-          <h2 id="compare-title">IntentGuard vs SAST, linters, and AI reviewers.</h2>
+          <h2 id="compare-title">AxiomGuard vs SAST, linters, and AI reviewers.</h2>
           <p>
-            IntentGuard is not another generic scanner. It adds a deterministic
+            AxiomGuard is not another generic scanner. It adds a deterministic
             intent layer beside the tools teams already use.
           </p>
         </div>
@@ -254,7 +302,7 @@ const faqSchema = {
               <tr>
                 <th>Alternative</th>
                 <th>What it checks</th>
-                <th>What IntentGuard adds</th>
+                <th>What AxiomGuard adds</th>
               </tr>
             </thead>
             <tbody>
@@ -315,7 +363,7 @@ const faqSchema = {
       <section class="section faq-section" id="faq" aria-labelledby="faq-title">
         <div class="section-heading">
           <p class="eyebrow">FAQ</p>
-          <h2 id="faq-title">Common questions about IntentGuard.</h2>
+          <h2 id="faq-title">Common questions about AxiomGuard.</h2>
         </div>
         <div class="faq-list">
           {faqItems.map((item) => (
@@ -324,27 +372,6 @@ const faqSchema = {
               <p>{item.answer}</p>
             </details>
           ))}
-        </div>
-      </section>
-
-      <section class="section section--split section--work" id="cli">
-        <div class="work-copy">
-          <p class="eyebrow">CLI first</p>
-          <h2>A report a reviewer can audit, not a vibe they have to trust.</h2>
-          <p>
-            S-Agent indexes TypeScript, runs approved SemanticRules, classifies
-            evidence, and prints the same chain that will later become a GitHub
-            Action comment.
-          </p>
-          <a class="button button--primary" id="demo" href="#top">Start with one rule</a>
-        </div>
-        <div class="terminal" role="img" aria-label="CLI output showing a proven finding">
-          <div class="terminal__bar">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <pre>{cliReportLines.join("\n")}</pre>
         </div>
       </section>
     </main>
