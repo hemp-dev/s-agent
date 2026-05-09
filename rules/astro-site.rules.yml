@@ -129,3 +129,39 @@ rules:
       file: "AGENTS.md"
       section: "Self-Application Principle"
       line: 45
+
+  - rule_id: S-AGENT-ASTRO-SEO-STATIC-001
+    domain: astro-site
+    status: approved
+    owner: web-platform
+    severity: warning
+    scope:
+      modules:
+        - "apps/site/src/content/**"
+        - "apps/site/src/pages/**"
+    intent: "SEO and AEO pages must stay static, source-controlled, and independent from runtime network or analytics side effects."
+    invariants:
+      - id: S-AGENT-ASTRO-SEO-STATIC-001
+        type: forbidden_side_effect
+        description: "SEO and AEO site routes must not perform runtime side-effect calls."
+        readonly: true
+        forbidden_calls:
+          - fetch
+          - openai
+          - anthropic
+          - chatCompletion
+          - responses
+          - generateText
+          - track
+          - identify
+          - capture
+          - setItem
+          - emit
+          - publish
+          - dispatch
+    enforcement:
+      mode: review
+    source:
+      file: "AGENTS.md"
+      section: "Self-Application Principle"
+      line: 45
