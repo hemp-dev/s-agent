@@ -4,7 +4,7 @@ import { runSAgentAnalysis } from "@s-agent/core";
 
 describe("integration: analyze broken project", () => {
   it("produces a PROVEN blocking finding for a layer boundary violation", async () => {
-    const projectRoot = path.resolve(__dirname, "../evaluation/fixtures/layer-boundary-violation");
+    const projectRoot = path.resolve(__dirname, "../../examples/demo-broken");
     const result = await runSAgentAnalysis({
       projectRoot,
       rulesDirectory: path.join(projectRoot, "rules")
@@ -14,7 +14,7 @@ describe("integration: analyze broken project", () => {
     expect(result.findings).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          rule_id: "EVAL-AUTH-001",
+          rule_id: "INV-AUTH-001",
           status: "PROVEN",
           blocking: true
         })

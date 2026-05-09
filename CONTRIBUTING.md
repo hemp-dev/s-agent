@@ -37,13 +37,29 @@ pnpm lint
 Run the clean demo:
 
 ```sh
-pnpm analyze:demo
+pnpm analyze:demo:clean
 ```
+
+`pnpm analyze:demo:clean` should exit with code `0`. If it exits non-zero,
+treat that as a local validation failure. `pnpm analyze:demo` is a convenience
+alias for the clean demo.
 
 The broken demo is intentionally expected to fail with a blocking finding:
 
 ```sh
 pnpm analyze:demo:broken
+```
+
+## Minimum local validation
+
+For documentation-only changes, run at least:
+
+```sh
+pnpm install
+pnpm build
+pnpm test
+pnpm lint
+pnpm analyze:demo:clean
 ```
 
 ## Run full local validation
@@ -56,7 +72,7 @@ pnpm build
 pnpm test
 pnpm lint
 pnpm rules:validate
-pnpm analyze:demo
+pnpm analyze:demo:clean
 pnpm analyze:self
 ```
 
@@ -188,5 +204,5 @@ Before opening a PR, check that:
 - `pnpm test` passes.
 - `pnpm lint` passes.
 - `pnpm rules:validate` passes.
-- `pnpm analyze:demo` passes.
+- `pnpm analyze:demo:clean` passes.
 - `pnpm analyze:self` passes.

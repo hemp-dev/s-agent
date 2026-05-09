@@ -4,12 +4,12 @@ import { runCli } from "../../apps/cli/src/main";
 
 describe("integration: blocking exit code", () => {
   it("returns non-zero only for blocking PROVEN critical findings", async () => {
-    const brokenProject = path.resolve(__dirname, "../evaluation/fixtures/layer-boundary-violation");
+    const brokenProject = path.resolve(__dirname, "../../examples/demo-broken");
     const sideEffectProject = path.resolve(
       __dirname,
       "../evaluation/fixtures/forbidden-side-effect-violation"
     );
-    const cleanProject = path.resolve(__dirname, "../evaluation/fixtures/clean-project");
+    const cleanProject = path.resolve(__dirname, "../../examples/demo-clean");
     const io = {
       stdout: () => undefined,
       stderr: () => undefined

@@ -108,7 +108,7 @@ pnpm lint
 Run the clean demo analysis:
 
 ```sh
-pnpm analyze:demo
+pnpm analyze:demo:clean
 ```
 
 Validate S-Agent's own dogfood rules:
@@ -129,9 +129,15 @@ Run the intentionally broken demo:
 pnpm analyze:demo:broken
 ```
 
-`pnpm analyze:demo:broken` exits with code `1` because it intentionally
-contains a blocking violation. `pnpm analyze:demo` uses the clean demo and is
-expected to exit with code `0`.
+`pnpm analyze:demo:clean` analyzes `examples/demo-clean` and is expected to
+exit with code `0`. A non-zero exit from the clean demo is not intentional and
+should be treated as a release validation failure.
+
+`pnpm analyze:demo:broken` analyzes `examples/demo-broken` and exits with code
+`1` because it intentionally contains one blocking `PROVEN` violation. Use it
+when you want to see the blocking report path.
+
+`pnpm analyze:demo` is a convenience alias for the clean demo.
 
 After building, the CLI entrypoint is available as the workspace binary package
 `@s-agent/cli` with the `s-agent` bin.
@@ -187,7 +193,7 @@ Only approved critical rules with deterministic `PROVEN` evidence can block.
 ```md
 # S-Agent Report
 
-Project: /path/to/examples/demo-typescript-app
+Project: /path/to/examples/demo-broken
 
 ## Violation: INV-AUTH-001
 
@@ -284,7 +290,7 @@ Read the full [open-core model](OPEN_CORE.md).
 - `packages/shared`: shared types and utilities.
 - `apps/cli`: command-line interface.
 - `rules`: S-Agent's own dogfood rules, including package boundary rules.
-- `examples`: broken and clean TypeScript demo projects.
+- `examples`: clean and intentionally broken TypeScript demo projects.
 - `tests/evaluation`: semantic benchmark fixtures and metric tests.
 - `docs/community`: community roadmap and contribution ideas.
 
@@ -304,10 +310,39 @@ Read the full [open-core model](OPEN_CORE.md).
 
 - v0.1: open-source core with CLI, rule validation, parser, analyzer,
   proof-carrying findings, reports, fixtures, and benchmarks.
-- v0.2: basic GitHub Action mode.
-- v0.3: community rule packs and more framework examples.
-- v0.4: plugin API draft and extension-point design.
+- v0.2: GitHub Action mode with generated staged artifacts.
+- v0.3: `render-context` design and implementation.
+- v0.4: `git-risk` design and implementation.
+- v0.5: classical-first rule suggestion.
+- Later: community rule packs, more framework examples, and plugin API design.
 - Future: IntentGuard Pro alpha for team workflows and governance.
+
+## Near-term roadmap inspired by minimal research tools
+
+The next S-Agent milestones borrow useful OSS habits from small, reproducible
+research tools: one-command demos, staged artifacts, explicit benchmarks, one
+complexity dial, and plain files that are easy for humans and LLM tools to
+inspect.
+
+- v0.2 GitHub Action + artifacts: add CI integration and `.s-agent/` staged
+  outputs such as project indexes, rule indexes, findings, evidence, and
+  Markdown reports.
+- v0.3 `render-context`: add a deterministic context export command that writes
+  `.s-agent/context.md`, `.s-agent/context.cxml`, and
+  `.s-agent/context.html`.
+- v0.4 `git-risk`: add advisory git-derived risk signals for churn, hotfixes,
+  author count, high-risk files, rule coverage, and critical module overlap.
+- v0.5 rule suggestion: suggest candidate rules with simple classical methods
+  such as TF-IDF over rule text, paths, symbols, tests, and commits.
+
+Design notes:
+
+- [Karpathy-inspired principles](docs/architecture/karpathy-inspired-principles.md)
+- [Staged artifacts](docs/architecture/staged-artifacts.md)
+- [Analysis depth](docs/architecture/analysis-depth.md)
+- [Render context](docs/architecture/render-context.md)
+- [Git risk signals](docs/architecture/git-risk-signals.md)
+- [Rule suggestion](docs/architecture/rule-suggestion.md)
 
 See the [community roadmap](docs/community/community-roadmap.md).
 

@@ -4,7 +4,7 @@ import { runSAgentAnalysis } from "@s-agent/core";
 
 describe("integration: analyze clean project", () => {
   it("produces no blocking findings for a clean project", async () => {
-    const projectRoot = path.resolve(__dirname, "../evaluation/fixtures/clean-project");
+    const projectRoot = path.resolve(__dirname, "../../examples/demo-clean");
     const result = await runSAgentAnalysis({
       projectRoot,
       rulesDirectory: path.join(projectRoot, "rules")

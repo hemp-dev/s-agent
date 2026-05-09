@@ -10,8 +10,9 @@
     "lint": "tsc -b --pretty false",
     "test": "vitest run",
     "test:watch": "vitest",
-    "analyze:demo": "pnpm --filter @s-agent/cli run analyze --project ../../examples/demo-typescript-app-clean",
-    "analyze:demo:broken": "pnpm --filter @s-agent/cli run analyze --project ../../examples/demo-typescript-app",
+    "analyze:demo": "pnpm run analyze:demo:clean",
+    "analyze:demo:clean": "pnpm --filter @s-agent/cli run analyze --project ../../examples/demo-clean",
+    "analyze:demo:broken": "pnpm --filter @s-agent/cli run analyze --project ../../examples/demo-broken",
     "analyze:self": "pnpm --filter @s-agent/cli run analyze --project ../.. --rules ../../rules --json",
     "rules:validate": "pnpm --filter @s-agent/cli run rules:validate --rules ../../rules"
   },

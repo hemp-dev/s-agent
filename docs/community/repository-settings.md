@@ -47,7 +47,7 @@ Recommended required checks:
 - `pnpm build`
 - `pnpm test`
 - `pnpm lint`
-- `pnpm analyze:demo`
+- `pnpm analyze:demo:clean`
 
 If GitHub exposes the checks under workflow job names instead of command names,
 select the corresponding CI job.

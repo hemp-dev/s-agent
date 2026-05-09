@@ -38,6 +38,17 @@ IntentGuard is the future commercial platform built on top of S-Agent Core.
 It is intended for teams and organizations that need shared workflows around
 semantic code review.
 
+## Product boundary
+
+| Area | S-Agent Core | IntentGuard Pro / Enterprise |
+| --- | --- | --- |
+| Availability | Open-source repository | Future commercial products |
+| Primary user | Individual developers and CI jobs | Teams and organizations |
+| Execution model | Local CLI and basic CI usage | Hosted, team, and enterprise workflows |
+| Source of truth | Approved `SemanticRule` files | Shared rule governance built on core rules |
+| Blocking behavior | Deterministic `PROVEN` findings only | Uses core findings, with extra workflow features |
+| Required service | None | Future hosted or self-hosted platform |
+
 Commercial editions may include:
 
 - Hosted dashboard.

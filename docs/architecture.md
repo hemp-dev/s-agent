@@ -46,3 +46,12 @@ These rules are valid `SemanticRule` fixtures and can be validated with:
 ```sh
 node apps/cli/dist/main.js rules validate --rules rules
 ```
+
+## Related Design Notes
+
+- [Karpathy-inspired principles](architecture/karpathy-inspired-principles.md)
+- [Staged artifacts](architecture/staged-artifacts.md)
+- [Analysis depth](architecture/analysis-depth.md)
+- [Render context](architecture/render-context.md)
+- [Git risk signals](architecture/git-risk-signals.md)
+- [Rule suggestion](architecture/rule-suggestion.md)
