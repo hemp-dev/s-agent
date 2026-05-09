@@ -7,7 +7,7 @@ S-Agent intent-aware code review के लिए एक open-source semantic an
 है। यह जांचता है कि TypeScript code changes approved business और architectural
 intent को सुरक्षित रखते हैं या नहीं।
 
-IntentGuard भविष्य का commercial platform है, जो team workflows और enterprise
+AxiomGuard भविष्य का commercial platform है, जो team workflows और enterprise
 governance के लिए S-Agent Core के ऊपर बनाया जाएगा।
 
 ## समस्या
@@ -197,7 +197,7 @@ paywall के पीछे नहीं ले जाया जाएगा।
 
 S-Agent Core open-source semantic analysis engine है।
 
-IntentGuard Pro और Enterprise बाद में core के ऊपर team और organization
+AxiomGuard Pro और Enterprise बाद में core के ऊपर team और organization
 workflows जोड़ सकते हैं, जैसे:
 
 - hosted dashboard;
@@ -260,7 +260,7 @@ workflows जोड़ सकते हैं, जैसे:
 - v0.2: basic GitHub Action mode.
 - v0.3: community rule packs और अधिक framework examples.
 - v0.4: plugin API draft और extension-point design.
-- Future: team workflows और governance के लिए IntentGuard Pro alpha.
+- Future: team workflows और governance के लिए AxiomGuard Pro alpha.
 
 [Community roadmap](../community/community-roadmap.md) देखें।
 

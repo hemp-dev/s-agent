@@ -4,9 +4,9 @@
 
 `S-Agent` should remain the internal architecture and repository codename. It sounds technical, implementation-oriented, and agent-centric. The customer-facing product should be framed around intent protection, not agent mechanics.
 
-## Recommended Brand: IntentGuard
+## Recommended Brand: AxiomGuard
 
-**Core line:** IntentGuard protects business intent in every code change.
+**Core line:** AxiomGuard protects business intent in every code change.
 
 ### Why It Works
 
@@ -26,7 +26,7 @@
 
 Pair the name with code review language:
 
-> IntentGuard: Intent-Aware Code Review for engineering teams.
+> AxiomGuard: Intent-Aware Code Review for engineering teams.
 
 ## Alternative Directions
 
@@ -46,7 +46,7 @@ Pair the name with code review language:
 
 **Pros:** Direct, SEO-friendly, easy to explain.
 
-**Cons:** Less premium and less enterprise-ready than IntentGuard.
+**Cons:** Less premium and less enterprise-ready than AxiomGuard.
 
 **Tagline:** Know whether your code still means what it should.
 
@@ -66,7 +66,7 @@ Pair the name with code review language:
 
 **Pros:** Strong evidence and audit connotation.
 
-**Cons:** Sounds narrower and less strategic than IntentGuard.
+**Cons:** Sounds narrower and less strategic than AxiomGuard.
 
 ### IntentCheck
 
@@ -104,7 +104,7 @@ Pair the name with code review language:
 
 Use:
 
-- Product brand: **IntentGuard**
+- Product brand: **AxiomGuard**
 - Internal architecture name: **S-Agent**
 - Category: **Intent-Aware Code Review**
 - Category aliases to test: **Semantic Code Review**, **Intent-Aware PR Guard**
@@ -139,7 +139,7 @@ Avoid:
 
 | Layer | Name |
 | --- | --- |
-| Public product | IntentGuard |
+| Public product | AxiomGuard |
 | Category | Intent-Aware Code Review |
 | Internal project | S-Agent |
 | Rule object | SemanticRule |
@@ -150,4 +150,4 @@ Avoid:
 
 Use this when explaining the relationship:
 
-> IntentGuard is powered by S-Agent, a semantic analysis engine that checks whether code changes preserve approved business and architectural intent.
+> AxiomGuard is powered by S-Agent, a semantic analysis engine that checks whether code changes preserve approved business and architectural intent.
