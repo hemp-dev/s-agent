@@ -1,0 +1,27 @@
+# IntentGuard
+
+> IntentGuard is an intent-aware code review tool that turns approved engineering docs, ADRs, and project rules into deterministic pull request checks for TypeScript teams.
+
+IntentGuard is powered by S-Agent Core, an open-source semantic analysis engine. Blocking findings require approved SemanticRules, deterministic symbolic evidence, and PROVEN status.
+
+Source repository: https://github.com/muthukumar-js-dev/intent-guard
+
+## Useful answers
+
+- IntentGuard checks whether pull requests preserve documented business and architecture intent.
+- Intent-aware code review catches changes that compile and pass tests but violate approved rules.
+- The MVP is TypeScript-first and focuses on layer boundaries, forbidden side effects, and value invariants.
+- LLMs may suggest candidate rules or explanations later, but they are not the source of truth for blocking.
+- Only PROVEN findings from approved critical rules in block mode can stop a merge.
+
+## Public paths
+
+- [Landing page](/)
+- [Semantic code review](/semantic-code-review)
+- [Intent-aware code review](/intent-aware-code-review)
+- [AI code review guardrails](/ai-code-review-guardrails)
+- [Architecture drift prevention](/architecture-drift-prevention)
+- [Business logic regression prevention](/business-logic-regression-prevention)
+- [Source repository](https://github.com/muthukumar-js-dev/intent-guard)
+- [Sitemap](/sitemap.xml)
+- [Robots policy](/robots.txt)
