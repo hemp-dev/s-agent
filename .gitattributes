@@ -1,0 +1,2 @@
+# Keep the landing site out of S-Agent Core source archives and releases.
+apps/site/** export-ignore

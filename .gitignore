@@ -5,8 +5,12 @@ node_modules/
 .pnpm-store/
 
 dist/
+.astro/
 coverage/
 *.tsbuildinfo
+
+# Landing site deploys from a dedicated Vercel branch, not S-Agent Core.
+apps/site/
 
 .env
 .env.*
