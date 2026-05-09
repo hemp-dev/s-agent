@@ -1,5 +1,32 @@
 # Changelog
 
+## v0.2.0 - 2026-05-09
+
+GitHub Action and benchmark infrastructure release.
+
+### Added
+
+- Added a root composite GitHub Action that runs the existing S-Agent CLI.
+- Added GitHub Action inputs for project path, rules path, output format, and
+  blocking-failure behavior.
+- Added GitHub Action usage documentation and a copy-paste workflow example.
+- Added `pnpm benchmark` for running the canonical evaluation fixtures.
+- Added benchmark JSON summary output and Markdown leaderboard row output.
+- Added benchmark metrics for precision, recall, false positive rate, PROVEN
+  rate, runtime, and clean blocking rate.
+- Added benchmark methodology docs and the initial leaderboard.
+- Added a shared evaluation fixture manifest used by both tests and benchmark
+  reporting.
+
+### Changed
+
+- Updated the README with GitHub Action and benchmark usage.
+
+### Known Limitations
+
+- Pull request comments are not implemented yet.
+- No hosted service, dashboard, or analyzer behavior changes are included.
+
 ## v0.1.0 - 2026-05-08
 
 Initial open-source MVP.
