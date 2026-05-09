@@ -1,0 +1,7 @@
+---
+import fs from "node:fs";
+
+const localCopy = fs.readFileSync("landing.md", "utf8");
+---
+
+<aside>{localCopy}</aside>

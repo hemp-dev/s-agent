@@ -23,8 +23,14 @@ export function importMatchesPattern(importReference: ImportReference, pattern: 
     );
   }
 
+  if (matchesPath(normalizedSource, normalizedPattern)) {
+    return true;
+  }
+
   const basenamePattern = normalizeProjectPath(path.basename(normalizedPattern));
-  return Boolean(basenamePattern && normalizedSource.includes(basenamePattern.replace(/\*/g, "")));
+  const literalPattern = basenamePattern.replace(/\*/g, "");
+
+  return Boolean(literalPattern && normalizedSource.includes(literalPattern));
 }
 
 export function functionAtLine(file: IndexedFile, line: number): FunctionInfo | undefined {
