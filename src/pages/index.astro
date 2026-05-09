@@ -1,0 +1,197 @@
+---
+import {
+  brand,
+  cliReportLines,
+  diffLines,
+  findingStatuses,
+  proofChain,
+  semanticRuleSnippet,
+  violationTypes
+} from "../content/landing";
+import "../styles/landing.css";
+
+const pageTitle = `${brand.product} - ${brand.category}`;
+const pageDescription =
+  "Deterministic-first semantic code review for TypeScript teams. Approved rules, symbolic evidence, proof-carrying findings.";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={pageDescription} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content="website" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand-mark" href="#top" aria-label="IntentGuard home">
+        <span class="brand-mark__sigil">IG</span>
+        <span>
+          <strong>{brand.product}</strong>
+          <small>powered by {brand.engine}</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#rules">Rules</a>
+        <a href="#proof">Proof</a>
+        <a href="#cli">CLI</a>
+      </nav>
+      <a class="header-action" href="#demo">Run demo</a>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__copy">
+          <p class="eyebrow">{brand.category}</p>
+          <h1 id="hero-title">{brand.headline}</h1>
+          <p class="hero__lede">{brand.subheadline}</p>
+          <div class="hero__actions" aria-label="Hero actions">
+            <a class="button button--primary" href="#cli">Run the demo</a>
+            <a class="button button--secondary" href="#rules">Read the rule shape</a>
+          </div>
+          <ul class="trust-list" aria-label="Trust principles">
+            <li>Approved rules are source of truth</li>
+            <li>LLM cannot create blocking findings</li>
+            <li>PROVEN critical evidence can block</li>
+          </ul>
+        </div>
+
+        <div class="proof-stage" aria-label="Proof-carrying review board">
+          <div class="stage-rails" aria-hidden="true"></div>
+
+          <article class="artifact artifact--rule">
+            <p class="artifact__label">SemanticRule</p>
+            <pre>{semanticRuleSnippet.join("\n")}</pre>
+          </article>
+
+          <article class="artifact artifact--diff">
+            <p class="artifact__label">Changed diff</p>
+            {diffLines.map((line) => (
+              <div class={`diff-line diff-line--${line.tone}`}>{line.text}</div>
+            ))}
+          </article>
+
+          <article class="artifact artifact--finding">
+            <p class="artifact__label">Proof-carrying finding</p>
+            <h2>AUTH-BOUNDARY-001</h2>
+            <dl>
+              <div>
+                <dt>Status</dt>
+                <dd>PROVEN</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>import edge auth -> billing</dd>
+              </div>
+              <div>
+                <dt>Action</dt>
+                <dd>Block merge</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="artifact artifact--trace">
+            <p class="artifact__label">Trace</p>
+            <ol>
+              {proofChain.map((item) => <li>{item}</li>)}
+            </ol>
+          </article>
+        </div>
+      </section>
+
+      <section class="signal-strip" aria-label="Supported checks">
+        <div class="signal-strip__track">
+          {violationTypes.map((item) => (
+            <article class={`signal-card signal-card--${item.accent}`}>
+              <strong>{item.title}</strong>
+              <span>{item.rule}</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section section--split" id="rules">
+        <div>
+          <p class="eyebrow">Docs become guardrails</p>
+          <h2>Your most repeated review comments should be executable.</h2>
+        </div>
+        <div class="copy-stack">
+          <p>
+            IntentGuard starts where teams already write intent: CLAUDE.md, READMEs,
+            ADRs, and architecture notes. Candidate rules can be suggested, but the
+            approved YAML file is the source of truth.
+          </p>
+          <p>
+            The MVP stays deliberately narrow: TypeScript diffs, symbolic checks, and
+            proof-carrying findings for the three violations that teams repeat by hand.
+          </p>
+        </div>
+      </section>
+
+      <section class="section check-grid" aria-label="MVP violation checks">
+        {violationTypes.map((item) => (
+          <article class={`check-card check-card--${item.accent}`}>
+            <span class="check-card__index">0{violationTypes.indexOf(item) + 1}</span>
+            <h3>{item.title}</h3>
+            <p>{item.rule}</p>
+            <code>{item.example}</code>
+          </article>
+        ))}
+      </section>
+
+      <section class="section proof-section" id="proof">
+        <div class="section-heading">
+          <p class="eyebrow">Finding statuses</p>
+          <h2>Only proof gets to stop a merge.</h2>
+          <p>
+            Heuristics can point reviewers toward risk. Blocking remains conservative:
+            approved critical rules, deterministic evidence, and a concrete trace.
+          </p>
+        </div>
+
+        <div class="status-grid">
+          {findingStatuses.map((item) => (
+            <article class={`status-card status-card--${item.status.toLowerCase()}`}>
+              <strong>{item.status}</strong>
+              <span>{item.effect}</span>
+              <p>{item.detail}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section section--split section--work" id="cli">
+        <div class="work-copy">
+          <p class="eyebrow">CLI first</p>
+          <h2>A report a reviewer can audit, not a vibe they have to trust.</h2>
+          <p>
+            S-Agent indexes TypeScript, runs approved SemanticRules, classifies
+            evidence, and prints the same chain that will later become a GitHub
+            Action comment.
+          </p>
+          <a class="button button--primary" id="demo" href="#top">Start with one rule</a>
+        </div>
+        <div class="terminal" role="img" aria-label="CLI output showing a proven finding">
+          <div class="terminal__bar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <pre>{cliReportLines.join("\n")}</pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        {brand.product} is the public product direction. {brand.engine} is the semantic
+        analysis engine inside this repository.
+      </p>
+      <a href="#top">Back to top</a>
+    </footer>
+  </body>
+</html>
