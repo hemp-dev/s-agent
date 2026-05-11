@@ -36,11 +36,13 @@ describe("integration: GitHub Action metadata", () => {
     expect(action.inputs?.project?.default).toBe(".");
     expect(action.inputs?.rules?.default).toBe("rules");
     expect(action.inputs?.["output-format"]?.default).toBe("markdown");
+    expect(action.inputs?.diff?.default).toBe("");
     expect(action.inputs?.["fail-on-blocking"]?.default).toBe("true");
     expect(runScript).toContain("apps/cli/dist/index.js");
     expect(runScript).toContain("analyze");
     expect(runScript).toContain("--project");
     expect(runScript).toContain("--rules");
+    expect(runScript).toContain("--diff");
   });
 
   it("documents a copy-paste workflow example", () => {
@@ -48,8 +50,8 @@ describe("integration: GitHub Action metadata", () => {
     const example = readText("examples/github-action/s-agent.yml");
     const readme = readText("README.md");
 
-    expect(docs).toContain("uses: s-agent/s-agent@v0.2.0");
-    expect(example).toContain("uses: s-agent/s-agent@v0.2.0");
-    expect(readme).toContain("uses: s-agent/s-agent@v0.2.0");
+    expect(docs).toContain("uses: s-agent/s-agent@v0.3.0");
+    expect(example).toContain("uses: s-agent/s-agent@v0.3.0");
+    expect(readme).toContain("uses: s-agent/s-agent@v0.3.0");
   });
 });

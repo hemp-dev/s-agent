@@ -23,9 +23,11 @@ flowchart LR
   docs["CLAUDE.md / docs"] --> rules["SemanticRule YAML"]
   rules --> validator["rules validator"]
   validator --> registry["approved enforceable registry"]
+  diff["PR unified diff"] --> scope["changed-line scope"]
   source["TypeScript project"] --> parser["parser index"]
   registry --> analyzer["analyzer checks"]
   parser --> analyzer
+  scope --> analyzer
   analyzer --> verifier["proof-carrying verifier"]
   verifier --> explainer["deterministic report"]
   explainer --> cli["CLI output"]
@@ -37,8 +39,10 @@ The root `rules/s-agent-architecture.rules.yml` file protects the MVP boundaries
 
 - `packages/rules` must not depend on analyzer, parser, verifier, or explainer.
 - `packages/parser` must not depend on explainer.
+- `packages/analyzer` must not depend on explainer.
 - `packages/verifier` must not call LLM clients.
 - `apps/cli` must not import analyzer or parser directly.
+- `packages/core` must consume explicit diff input instead of shelling out to git.
 - only approved critical rules in block mode may produce blocking findings.
 
 These rules are valid `SemanticRule` fixtures and can be validated with:

@@ -96,6 +96,51 @@ rules:
       section: "S-Agent Internal Architecture Rules"
       line: 75
 
+  - rule_id: S-AGENT-ARCH-ANALYZER-001
+    domain: architecture
+    status: approved
+    owner: core-team
+    severity: critical
+    scope:
+      modules:
+        - "packages/analyzer/**"
+    intent: "The analyzer owns symbolic checks and diff scoping but must not generate final user-facing explanations."
+    invariants:
+      - id: S-AGENT-ARCH-ANALYZER-001
+        type: forbidden_import
+        description: "packages/analyzer must not depend on explainer."
+        forbidden_imports:
+          - "@s-agent/explainer"
+    enforcement:
+      mode: block
+    source:
+      file: "AGENTS.md"
+      section: "S-Agent Internal Architecture Rules"
+      line: 100
+
+  - rule_id: S-AGENT-DIFF-GUARD-001
+    domain: diff-guard
+    status: approved
+    owner: core-team
+    severity: critical
+    scope:
+      modules:
+        - "packages/core/**"
+    intent: "PR diff analysis must consume explicit unified diff input instead of letting core shell out to git or infer repository state."
+    invariants:
+      - id: S-AGENT-DIFF-GUARD-001
+        type: forbidden_import
+        description: "packages/core must not use child_process to discover PR diffs."
+        forbidden_imports:
+          - "node:child_process"
+          - "child_process"
+    enforcement:
+      mode: block
+    source:
+      file: "AGENTS.md"
+      section: "Core Principle"
+      line: 17
+
   - rule_id: S-AGENT-RULE-LIFECYCLE-001
     domain: rule-lifecycle
     status: approved

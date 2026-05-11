@@ -138,6 +138,17 @@ Run the intentionally broken demo:
 pnpm analyze:demo:broken
 ```
 
+Run analysis as a PR diff guard:
+
+```sh
+git diff --unified=0 origin/main...HEAD > pr.diff
+pnpm --filter @s-agent/cli run analyze --project . --rules rules --diff pr.diff
+```
+
+Diff mode reports only findings whose evidence appears on added lines in the
+unified diff. Existing violations elsewhere in touched files are not treated as
+new PR findings.
+
 `pnpm analyze:demo:clean` analyzes `examples/demo-clean` and is expected to
 exit with code `0`. A non-zero exit from the clean demo is not intentional and
 should be treated as a release validation failure.
@@ -175,7 +186,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run S-Agent
-        uses: s-agent/s-agent@v0.2.0
+        uses: s-agent/s-agent@v0.3.0
         with:
           project: "."
           rules: "rules"

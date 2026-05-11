@@ -14,6 +14,10 @@ inputs:
     description: CLI report format. Supported values are markdown and json.
     required: false
     default: "markdown"
+  diff:
+    description: Optional unified diff file. When set, S-Agent reports only findings introduced by added diff lines.
+    required: false
+    default: ""
   fail-on-blocking:
     description: Fail the workflow when the CLI reports blocking findings.
     required: false
@@ -41,6 +45,7 @@ runs:
         PROJECT_INPUT: ${{ inputs.project }}
         RULES_INPUT: ${{ inputs.rules }}
         OUTPUT_FORMAT: ${{ inputs.output-format }}
+        DIFF_INPUT: ${{ inputs.diff }}
         FAIL_ON_BLOCKING: ${{ inputs.fail-on-blocking }}
       run: |
         set -euo pipefail
@@ -67,10 +72,16 @@ runs:
             ;;
         esac
 
+        DIFF_ARGS=()
+        if [ -n "$DIFF_INPUT" ]; then
+          DIFF_ARGS=(--diff "$DIFF_INPUT")
+        fi
+
         set +e
         node "$GITHUB_ACTION_PATH/apps/cli/dist/index.js" analyze \
           --project "$PROJECT_INPUT" \
           --rules "$RULES_INPUT" \
+          "${DIFF_ARGS[@]}" \
           "$FORMAT_FLAG"
         STATUS=$?
         set -e

@@ -1,5 +1,5 @@
 import path from "node:path";
-import { analyzeProject } from "@s-agent/analyzer";
+import { analyzeDiff, analyzeProject } from "@s-agent/analyzer";
 import { renderJsonReport, renderMarkdownReport } from "@s-agent/explainer";
 import { loadRulesFromDirectory, RuleRegistry, type SemanticRule } from "@s-agent/rules";
 import { verifyFindings, type ProofCarryingFinding } from "@s-agent/verifier";
@@ -7,6 +7,7 @@ import { verifyFindings, type ProofCarryingFinding } from "@s-agent/verifier";
 export interface SAgentConfig {
   projectRoot: string;
   rulesDirectory?: string;
+  diffText?: string;
 }
 
 export interface SAgentAnalysisResult {
@@ -26,10 +27,17 @@ export async function runSAgentAnalysis(config: SAgentConfig): Promise<SAgentAna
   const rulesDirectory = path.resolve(config.rulesDirectory ?? defaultRulesDirectory(projectRoot));
   const rules = await loadRulesFromDirectory(rulesDirectory);
   const registry = new RuleRegistry(rules);
-  const analysis = await analyzeProject({
-    projectRoot,
-    rules: registry.enforceable()
-  });
+  const enforceableRules = registry.enforceable();
+  const analysis = config.diffText !== undefined
+    ? await analyzeDiff({
+        projectRoot,
+        rules: enforceableRules,
+        diffText: config.diffText
+      })
+    : await analyzeProject({
+        projectRoot,
+        rules: enforceableRules
+      });
   const findings = verifyFindings(analysis.findings, rules);
 
   return {

@@ -17,11 +17,24 @@ interface ParsedArgs {
 export interface CliIO {
   stdout(message: string): void;
   stderr(message: string): void;
+  readStdin?(): Promise<string>;
 }
 
 const consoleIO: CliIO = {
   stdout: (message) => console.log(message),
-  stderr: (message) => console.error(message)
+  stderr: (message) => console.error(message),
+  readStdin: () =>
+    new Promise((resolve, reject) => {
+      let content = "";
+      process.stdin.setEncoding("utf8");
+      process.stdin.on("data", (chunk: string) => {
+        content += chunk;
+      });
+      process.stdin.on("end", () => {
+        resolve(content);
+      });
+      process.stdin.on("error", reject);
+    })
 };
 
 function parseArgs(argv: string[]): ParsedArgs {
@@ -65,7 +78,7 @@ function usage(): string {
     "Usage:",
     "  s-agent init",
     "  s-agent rules validate [--rules rules]",
-    "  s-agent analyze [--project .] [--rules rules] [--json|--markdown]"
+    "  s-agent analyze [--project .] [--rules rules] [--diff file|--diff-stdin] [--json|--markdown]"
   ].join("\n");
 }
 
@@ -129,6 +142,33 @@ async function validateRules(rulesDirectory: string, io: CliIO): Promise<void> {
   io.stdout(`Approved enforceable rules: ${registry.enforceable().length}.`);
 }
 
+async function readDiffText(
+  flags: Map<string, string | boolean>,
+  cwd: string,
+  io: CliIO
+): Promise<string | undefined> {
+  const diffPath = flagString(flags, "diff");
+  const diffStdin = hasFlag(flags, "diff-stdin") || diffPath === "-";
+
+  if (diffPath && diffPath !== "-" && diffStdin) {
+    throw new Error("Use either --diff <file> or --diff-stdin, not both.");
+  }
+
+  if (diffPath && diffPath !== "-") {
+    return fs.readFile(path.resolve(cwd, diffPath), "utf8");
+  }
+
+  if (diffStdin) {
+    if (!io.readStdin) {
+      throw new Error("This CLI environment cannot read diff from stdin.");
+    }
+
+    return io.readStdin();
+  }
+
+  return undefined;
+}
+
 async function analyze(
   flags: Map<string, string | boolean>,
   cwd: string,
@@ -136,7 +176,8 @@ async function analyze(
 ): Promise<number> {
   const projectRoot = path.resolve(flagString(flags, "project") ?? cwd);
   const rulesDirectory = path.resolve(flagString(flags, "rules") ?? defaultRulesDirectory(projectRoot));
-  const result = await runSAgentAnalysis({ projectRoot, rulesDirectory });
+  const diffText = await readDiffText(flags, cwd, io);
+  const result = await runSAgentAnalysis({ projectRoot, rulesDirectory, diffText });
   const outputJson = hasFlag(flags, "json");
   const outputMarkdown = hasFlag(flags, "markdown") || !outputJson;
 
