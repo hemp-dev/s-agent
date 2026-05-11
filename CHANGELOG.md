@@ -1,5 +1,35 @@
 # Changelog
 
+## v0.3.0 - 2026-05-11
+
+PR diff guard release.
+
+### Added
+
+- Added unified diff parsing for changed files and added line numbers.
+- Added PR diff-scoped analysis so S-Agent reports only findings whose
+  evidence appears on added diff lines.
+- Added `--diff <file>`, `--diff -`, and `--diff-stdin` support to the CLI.
+- Added a `diff` input to the composite GitHub Action.
+- Added tests proving old violations in touched files do not block a PR when
+  their evidence is outside the added diff lines.
+- Added dogfood SemanticRules for analyzer boundaries and explicit diff-input
+  ownership in core.
+
+### Changed
+
+- Updated the core API to accept explicit `diffText` for PR guard workflows.
+- Updated architecture docs, GitHub Action docs, README usage, and workflow
+  examples for v0.3.0.
+- Updated package versions to `0.3.0`.
+
+### Known Limitations
+
+- Diff mode still indexes the full project before filtering findings to added
+  diff evidence.
+- Pull request comments are not implemented yet.
+- Import resolution remains intentionally simple for the MVP.
+
 ## v0.2.0 - 2026-05-09
 
 GitHub Action and benchmark infrastructure release.
@@ -44,7 +74,7 @@ Initial open-source MVP.
 - Added clean and broken TypeScript demo projects.
 - Added S-Agent dogfood architecture rules in `rules/s-agent-architecture.rules.yml`.
 - Added evaluation fixtures, precision/recall/false-positive benchmarks, and a 50-case synthetic dataset.
-- Added product strategy docs for IntentGuard positioning, ICPs, pricing, messaging, and customer discovery.
+- Added product strategy docs for AxiomGuard positioning, ICPs, pricing, messaging, and customer discovery.
 - Added release CI for install, build, test, lint, rule validation, clean demo analysis, and self-analysis.
 - Added Apache-2.0 licensing, open-core documentation, governance, contribution, security, and code of conduct docs.
 - Added GitHub issue templates, a pull request template, and community roadmap docs.

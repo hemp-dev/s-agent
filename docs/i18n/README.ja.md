@@ -7,7 +7,7 @@ S-Agent は、意図を考慮したコードレビューのためのオープン
 semantic analysis engine です。TypeScript のコード変更が、承認済みの
 ビジネス意図とアーキテクチャ意図を保っているかを確認します。
 
-IntentGuard は、S-Agent Core の上に構築される将来の商用プラットフォーム
+AxiomGuard は、S-Agent Core の上に構築される将来の商用プラットフォーム
 で、チーム workflow と enterprise governance を扱います。
 
 ## 問題
@@ -201,7 +201,7 @@ features が paywall の後ろに移されることはありません。
 
 S-Agent Core は open-source semantic analysis engine です。
 
-IntentGuard Pro と Enterprise は、将来的に core の上に team と
+AxiomGuard Pro と Enterprise は、将来的に core の上に team と
 organization workflows を追加する可能性があります。例えば:
 
 - hosted dashboard;
@@ -264,7 +264,7 @@ organization workflows を追加する可能性があります。例えば:
 - v0.2: basic GitHub Action mode。
 - v0.3: community rule packs と more framework examples。
 - v0.4: plugin API draft と extension-point design。
-- Future: team workflows と governance のための IntentGuard Pro alpha。
+- Future: team workflows と governance のための AxiomGuard Pro alpha。
 
 [Community roadmap](../community/community-roadmap.md) を参照してください。
 

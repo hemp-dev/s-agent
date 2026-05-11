@@ -2,7 +2,7 @@
 
 ## Message House
 
-**Core claim:** IntentGuard protects business intent in every code change.
+**Core claim:** AxiomGuard protects business intent in every code change.
 
 **Audience:** Engineering leaders, platform teams, staff engineers, and teams adopting AI-assisted development.
 
@@ -14,11 +14,11 @@
 
 ### 1. Preserve the rules that make your system yours
 
-Generic tools catch generic issues. IntentGuard checks the rules that are specific to your product, domains, architecture, and business logic.
+Generic tools catch generic issues. AxiomGuard checks the rules that are specific to your product, domains, architecture, and business logic.
 
 ### 2. Block only what is approved and proven
 
-IntentGuard separates suggestions from enforceable findings. Only approved critical rules with deterministic evidence can block a PR.
+AxiomGuard separates suggestions from enforceable findings. Only approved critical rules with deterministic evidence can block a PR.
 
 ### 3. Turn docs into guardrails
 
@@ -26,11 +26,11 @@ Rules start from `CLAUDE.md`, READMEs, ADRs, and architecture docs, then become 
 
 ### 4. Help reviewers focus on judgment
 
-Stop spending senior review time restating the same boundaries. Let IntentGuard handle repeatable intent checks and leave humans for design tradeoffs.
+Stop spending senior review time restating the same boundaries. Let AxiomGuard handle repeatable intent checks and leave humans for design tradeoffs.
 
 ### 5. Make AI coding safer without slowing it down
 
-AI can produce code that compiles, passes tests, and still violates product intent. IntentGuard gives AI-generated and refactored code a deterministic check against rules your team approved.
+AI can produce code that compiles, passes tests, and still violates product intent. AxiomGuard gives AI-generated and refactored code a deterministic check against rules your team approved.
 
 ## Product Language
 
@@ -72,15 +72,15 @@ Avoid:
 
 ### "Is this just a linter?"
 
-No. Linters usually enforce syntax, style, or generic correctness. IntentGuard enforces project-specific business and architecture intent approved by your team.
+No. Linters usually enforce syntax, style, or generic correctness. AxiomGuard enforces project-specific business and architecture intent approved by your team.
 
 ### "Our SAST already scans PRs."
 
-Keep it. SAST protects against security vulnerabilities. IntentGuard protects against documented domain and architecture violations, such as a read-only flow writing to the database or an auth module importing billing.
+Keep it. SAST protects against security vulnerabilities. AxiomGuard protects against documented domain and architecture violations, such as a read-only flow writing to the database or an auth module importing billing.
 
 ### "AI code review tools already do this."
 
-Some AI reviewers can suggest issues from context. IntentGuard is designed for enforceable decisions: approved rules, deterministic checks, evidence chains, and strict blocking rules.
+Some AI reviewers can suggest issues from context. AxiomGuard is designed for enforceable decisions: approved rules, deterministic checks, evidence chains, and strict blocking rules.
 
 ### "Will this slow developers down?"
 
@@ -96,11 +96,11 @@ Blocking requires deterministic evidence and an approved critical rule. Heuristi
 
 ### "We do not have perfect docs."
 
-That is normal. Start with the few rules senior engineers already repeat in reviews. IntentGuard can make those rules visible, testable, and easier to improve.
+That is normal. Start with the few rules senior engineers already repeat in reviews. AxiomGuard can make those rules visible, testable, and easier to improve.
 
 ### "Can developers bypass it?"
 
-The policy should match the team's CI and repository settings. IntentGuard can provide the evidence and exit code; branch protection decides whether blocking findings prevent merge.
+The policy should match the team's CI and repository settings. AxiomGuard can provide the evidence and exit code; branch protection decides whether blocking findings prevent merge.
 
 ## Proof Points To Build Toward
 

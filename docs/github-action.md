@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run S-Agent
-        uses: s-agent/s-agent@v0.2.0
+        uses: s-agent/s-agent@v0.3.0
         with:
           project: "."
           rules: "rules"
@@ -43,6 +43,7 @@ jobs:
 | `project` | `.` | Project directory to analyze, relative to the workflow workspace unless absolute. |
 | `rules` | `rules` | SemanticRule directory, relative to the workflow workspace unless absolute. |
 | `output-format` | `markdown` | CLI report format. Supported values are `markdown` and `json`. |
+| `diff` | empty | Optional unified diff file. When set, only findings whose evidence appears on added diff lines are reported. |
 | `fail-on-blocking` | `true` | When `true`, the workflow fails if the CLI reports blocking findings. |
 
 ## Behavior
@@ -53,7 +54,26 @@ The action runs:
 s-agent analyze --project <project> --rules <rules> --markdown
 ```
 
-Use `output-format: "json"` to pass `--json` instead. With the default
+Use `output-format: "json"` to pass `--json` instead. Pass `diff` to run as a
+PR diff guard instead of a whole-project scan:
+
+```yaml
+- uses: actions/checkout@v4
+  with:
+    fetch-depth: 0
+
+- name: Prepare PR diff
+  run: git diff --unified=0 "${{ github.event.pull_request.base.sha }}...${{ github.sha }}" > s-agent.diff
+
+- name: Run S-Agent
+  uses: s-agent/s-agent@v0.3.0
+  with:
+    project: "."
+    rules: "rules"
+    diff: "s-agent.diff"
+```
+
+With the default
 `fail-on-blocking: "true"`, the action preserves the CLI exit code. Set
 `fail-on-blocking: "false"` to print the report but allow the workflow to
 continue when blocking findings are present.
@@ -62,11 +82,11 @@ For monorepos, point both paths at the workspace you want to analyze:
 
 ```yaml
 - name: Run S-Agent for API package
-  uses: s-agent/s-agent@v0.2.0
+  uses: s-agent/s-agent@v0.3.0
   with:
     project: "packages/api"
     rules: "packages/api/rules"
 ```
 
 Pull request comments are not implemented yet. Use the Markdown output in the
-workflow log for v0.2.0.
+workflow log for v0.3.0.

@@ -4,7 +4,7 @@ S-Agent is an open-source semantic analysis engine for intent-aware code
 review. It checks whether TypeScript code changes preserve approved business
 and architectural intent.
 
-IntentGuard is the future commercial platform built on top of S-Agent Core for
+AxiomGuard is the future commercial platform built on top of S-Agent Core for
 team workflows and enterprise governance.
 
 ## Translations
@@ -138,6 +138,17 @@ Run the intentionally broken demo:
 pnpm analyze:demo:broken
 ```
 
+Run analysis as a PR diff guard:
+
+```sh
+git diff --unified=0 origin/main...HEAD > pr.diff
+pnpm --filter @s-agent/cli run analyze --project . --rules rules --diff pr.diff
+```
+
+Diff mode reports only findings whose evidence appears on added lines in the
+unified diff. Existing violations elsewhere in touched files are not treated as
+new PR findings.
+
 `pnpm analyze:demo:clean` analyzes `examples/demo-clean` and is expected to
 exit with code `0`. A non-zero exit from the clean demo is not intentional and
 should be treated as a release validation failure.
@@ -175,7 +186,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run S-Agent
-        uses: s-agent/s-agent@v0.2.0
+        uses: s-agent/s-agent@v0.3.0
         with:
           project: "."
           rules: "rules"
@@ -298,7 +309,7 @@ not be moved behind a paywall.
 
 S-Agent Core is the open-source semantic analysis engine.
 
-IntentGuard Pro and Enterprise may later add team and organization workflows on
+AxiomGuard Pro and Enterprise may later add team and organization workflows on
 top of the core, such as:
 
 - hosted dashboard;
@@ -365,7 +376,7 @@ Read the full [open-core model](OPEN_CORE.md).
 - v0.4: `git-risk` design and implementation.
 - v0.5: classical-first rule suggestion.
 - Later: community rule packs, more framework examples, and plugin API design.
-- Future: IntentGuard Pro alpha for team workflows and governance.
+- Future: AxiomGuard Pro alpha for team workflows and governance.
 
 ## Near-term roadmap inspired by minimal research tools
 

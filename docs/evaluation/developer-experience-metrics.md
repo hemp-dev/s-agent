@@ -2,7 +2,7 @@
 
 ## Why DX Matters
 
-IntentGuard can only protect intent if developers trust its findings. The MVP should measure not only whether findings are correct, but whether they are understandable, actionable, and low-noise in real PR workflows.
+AxiomGuard can only protect intent if developers trust its findings. The MVP should measure not only whether findings are correct, but whether they are understandable, actionable, and low-noise in real PR workflows.
 
 ## Core DX Metrics
 

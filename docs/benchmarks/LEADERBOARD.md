@@ -12,6 +12,7 @@ quality metrics are the primary comparison signal.
 
 | Version | Date | Fixtures | Precision | Recall | False positive rate | PROVEN rate | Runtime | Clean blocking rate | Notes |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| v0.3.0 | 2026-05-11 | 6 | 1.000 | 1.000 | 0.000 | 0.500 | 20 ms | 0.000 | PR diff guard release; canonical fixture quality unchanged. |
 | v0.2.0 | 2026-05-09 | 6 | 1.000 | 1.000 | 0.000 | 0.500 | 20 ms | 0.000 | Initial local baseline on existing evaluation fixtures. |
 
 ## Submission Rules

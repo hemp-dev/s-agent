@@ -12,7 +12,7 @@ Comparable tools in adjacent categories often price per contributor or seat:
 - DeepSource Team lists $30 per contributor per month, with additional AI and SCA usage models.
 - SonarQube Cloud uses LOC-based pricing; the Team plan currently starts at EUR 30 monthly for up to 100k private LOC.
 
-IntentGuard should not race to the bottom as a linter. Its value is closer to preventing costly architecture and business-rule regressions, especially for teams where senior review time is scarce.
+AxiomGuard should not race to the bottom as a linter. Its value is closer to preventing costly architecture and business-rule regressions, especially for teams where senior review time is scarce.
 
 ## Recommended Model
 

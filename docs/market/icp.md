@@ -19,7 +19,7 @@
 - Senior engineers cannot manually re-check every product invariant.
 - The team wants AI speed without losing architecture discipline.
 
-**Value promise:** IntentGuard verifies that AI-generated and refactored code still preserves approved business and architecture intent.
+**Value promise:** AxiomGuard verifies that AI-generated and refactored code still preserves approved business and architecture intent.
 
 ## Secondary ICP: Fintech and Billing-Heavy SaaS
 
@@ -40,7 +40,7 @@
 - SAST catches vulnerabilities but not pricing or entitlement intent.
 - Reviewers need evidence for why a finding should block.
 
-**Value promise:** IntentGuard prevents business-rule regressions in modules where mistakes have visible ROI.
+**Value promise:** AxiomGuard prevents business-rule regressions in modules where mistakes have visible ROI.
 
 ## Tertiary ICP: Legacy Modernization Teams
 
@@ -60,7 +60,7 @@
 - Refactors risk breaking implicit invariants.
 - Migration teams need guardrails as rules become explicit.
 
-**Value promise:** IntentGuard turns rediscovered rules into enforceable checks during modernization.
+**Value promise:** AxiomGuard turns rediscovered rules into enforceable checks during modernization.
 
 ## Additional ICP: Scaling Product Engineering Teams
 
@@ -73,7 +73,7 @@
 - AI-generated or junior-authored changes look plausible but violate boundaries.
 - Existing linters and SAST tools do not understand product intent.
 
-**Value promise:** IntentGuard turns approved engineering and product intent into enforceable PR checks with proof.
+**Value promise:** AxiomGuard turns approved engineering and product intent into enforceable PR checks with proof.
 
 ## Non-ICP
 

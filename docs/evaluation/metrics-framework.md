@@ -2,7 +2,7 @@
 
 ## Purpose
 
-S-Agent, customer-facing as IntentGuard, needs two measurement systems:
+S-Agent, customer-facing as AxiomGuard, needs two measurement systems:
 
 1. Product correctness: does the deterministic review engine find real intent violations without noisy blocking findings?
 2. Product usefulness: do teams understand, trust, and keep using the findings?
@@ -37,14 +37,14 @@ The MVP should optimize for narrow reliability over broad coverage. A small numb
 | Developer acceptance rate | Findings accepted by developers divided by actionable findings. | Track in pilots |
 | Suppression rate | Suppressed or dismissed findings divided by total findings. | Track; rising rate signals noise |
 | Time to understand finding | Median time for a developer to explain why a finding exists. | Under 60 seconds for deterministic findings |
-| PR review time impact | Review duration with IntentGuard compared to baseline review duration. | Neutral or better after onboarding |
+| PR review time impact | Review duration with AxiomGuard compared to baseline review duration. | Neutral or better after onboarding |
 
 ### Business Metrics
 
 | Metric | Definition | MVP target |
 | --- | --- | --- |
 | Semantic regressions prevented | Confirmed risky merges prevented by blocking or accepted review findings. | At least 1 in first real repo test |
-| Escaped semantic bugs | Semantic bugs that still reach production after IntentGuard is deployed. | Track; should trend down |
+| Escaped semantic bugs | Semantic bugs that still reach production after AxiomGuard is deployed. | Track; should trend down |
 | Critical module coverage | Critical modules with at least one approved rule divided by total critical modules. | Track by repo |
 | Architecture drift detected | Boundary or dependency violations detected before merge. | Track by repo |
 | AI-generated code safety | AI-authored PRs checked and cleared or blocked by approved rules. | Track during AI coding pilots |
