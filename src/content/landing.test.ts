@@ -55,7 +55,7 @@ describe("landing content", () => {
     expect(pageMetadata.lastUpdated).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(siteMetadata.productionUrl).toBe("https://axiomguard.dev");
     expect(siteMetadata.githubUrl).toBe("https://github.com/hemp-dev/s-agent");
-    expect(siteMetadata.releaseUrl).toContain("/releases/tag/v0.2.0");
+    expect(siteMetadata.releaseUrl).toContain("/releases/tag/v0.3.0");
     expect(siteMetadata.benchmarkUrl).toContain("docs/benchmarks/LEADERBOARD.md");
     expect(siteMetadata.karpathyUrl).toBe("https://karpathy.ai/");
     expect(siteMetadata.ogImagePath).toBe("/og/axiomguard-og.png");
@@ -118,13 +118,14 @@ describe("landing content", () => {
     expect(workflowSteps).toHaveLength(4);
   });
 
-  it("surfaces the v0.2.0 release and acknowledgement content", () => {
-    expect(releaseUpdate.version).toBe("S-Agent Core v0.2.0");
+  it("surfaces the v0.3.0 release and acknowledgement content", () => {
+    expect(releaseUpdate.version).toBe("S-Agent Core v0.3.0");
     expect(releaseUpdate.highlights.map((item) => item.label)).toEqual([
-      "GitHub Action",
-      "Benchmarks",
-      "Scope discipline"
+      "PR diff guard",
+      "No stale blockers",
+      "Action input"
     ]);
+    expect(releaseUpdate.body).toContain("unified diff");
     expect(releaseUpdate.metrics.map((metric) => metric.label)).toContain("Clean blocking rate");
     expect(inspirationCredit.title).toContain("Andrej Karpathy");
     expect(inspirationCredit.body).toContain("not an affiliation");

@@ -95,7 +95,7 @@ const faqSchema = {
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="#answers">What it is</a>
-        <a href="#release">v0.2.0</a>
+        <a href="#release">v0.3.0</a>
         <a href="#demo">Demo</a>
         <a href="#rules">Rules</a>
         <a href="#faq">FAQ</a>
@@ -114,10 +114,10 @@ const faqSchema = {
           <p class="hero__definition">{heroDefinition}</p>
           <div class="hero__actions" aria-label="Hero actions">
             <a class="button button--primary" href="#demo">Run the real demo</a>
-            <a class="button button--secondary" href="#release">See v0.2.0</a>
+            <a class="button button--secondary" href="#release">See v0.3.0</a>
           </div>
           <ul class="trust-list" aria-label="Trust principles">
-            <li>GitHub Action for CI</li>
+            <li>PR diff guard for CI</li>
             <li>Benchmark leaderboard is public</li>
             <li>Approved rules are source of truth</li>
             <li>PROVEN critical evidence can block</li>
@@ -192,7 +192,7 @@ const faqSchema = {
           ))}
         </div>
 
-        <div class="metric-strip" aria-label="v0.2.0 benchmark metrics">
+        <div class="metric-strip" aria-label="v0.3.0 benchmark metrics">
           {releaseUpdate.metrics.map((metric) => (
             <article class="metric-tile">
               <strong>{metric.value}</strong>

@@ -11,13 +11,13 @@ export const pageMetadata = {
   title: "AxiomGuard - Intent-Aware Code Review for TypeScript PRs",
   description:
     "AxiomGuard is an intent-aware code review tool that turns approved engineering docs into deterministic TypeScript pull request checks with proof-carrying findings.",
-  lastUpdated: "2026-05-09"
+  lastUpdated: "2026-05-12"
 } as const;
 
 export const siteMetadata = {
   productionUrl: "https://axiomguard.dev",
   githubUrl: "https://github.com/hemp-dev/s-agent",
-  releaseUrl: "https://github.com/hemp-dev/s-agent/releases/tag/v0.2.0",
+  releaseUrl: "https://github.com/hemp-dev/s-agent/releases/tag/v0.3.0",
   benchmarkUrl: "https://github.com/hemp-dev/s-agent/blob/main/docs/benchmarks/LEADERBOARD.md",
   karpathyUrl: "https://karpathy.ai/",
   ogImagePath: "/og/axiomguard-og.png"
@@ -27,29 +27,29 @@ export const heroDefinition =
   "AxiomGuard is an intent-aware code review guard for TypeScript PRs that turns approved rules into proof-carrying checks." as const;
 
 export const releaseUpdate = {
-  version: "S-Agent Core v0.2.0",
-  title: "GitHub Action and benchmark infrastructure are now public.",
+  version: "S-Agent Core v0.3.0",
+  title: "PR diff guard mode is now public.",
   body:
-    "The new release turns S-Agent from a local CLI demo into a CI-ready semantic guard: teams can run approved SemanticRules in GitHub Actions and track quality with a reproducible benchmark leaderboard.",
-  cta: "Read the v0.2.0 release",
+    "The new release closes the gap between whole-project analysis and pull request review: S-Agent can now consume a unified diff and report only findings whose evidence appears on added PR lines.",
+  cta: "Read the v0.3.0 release",
   highlights: [
     {
-      label: "GitHub Action",
-      title: "Run S-Agent in CI",
+      label: "PR diff guard",
+      title: "Review only new evidence",
       body:
-        "Use the composite action to call the existing CLI with project, rules, output-format, and fail-on-blocking inputs."
+        "Use --diff, --diff-stdin, or the GitHub Action diff input to scope findings to added lines in a unified pull request diff."
     },
     {
-      label: "Benchmarks",
-      title: "Measure semantic review quality",
+      label: "No stale blockers",
+      title: "Touched files are not enough",
       body:
-        "Run pnpm benchmark for JSON output, a Markdown table, precision, recall, false-positive rate, PROVEN rate, runtime, and clean blocking rate."
+        "Existing violations elsewhere in a changed file are not treated as new PR findings unless the proof evidence is on an added diff line."
     },
     {
-      label: "Scope discipline",
-      title: "No hidden analyzer changes",
+      label: "Action input",
+      title: "Bring your own diff",
       body:
-        "The release adds CI and measurement infrastructure without PR comments, hosted services, dashboards, or artificial analyzer tuning."
+        "The composite action now accepts a diff file while core keeps diff discovery explicit instead of shelling out to repository state."
     }
   ],
   metrics: [
